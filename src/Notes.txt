@@ -1,0 +1,153 @@
+Notes
+4/12 
+usgs 
+Todo:
+    Implement Franklin Marshall 
+    Get to work for simple model
+        Plot points 
+    visibility index 
+    grass gis 
+    trerrainmap.com 
+    open street 
+    
+
+    Write code to get coords for size n 
+        implement for one location 
+        implement for multiple locations 
+    Update slides 
+
+4/26-
+    Finish Olympus 
+
+    Start Olympians 
+
+                         5,4,6,5,5,5,11,10,10,11,12,
+                          4,10,10,10,5,5,10,10,10,11,12,
+                          3,4,5,6,5,6,9,10,10,11,12,
+                          5,4,5,6,5,7,8,8,8,8,8,
+                          4,4,8,6,5,6,7,8,7,8,8,
+                          5,6,5,4,4,4,7,8,8,8,9,
+                         5,6,5,5,4,5,7,7,8,8,8,
+                         5,4,3,5,5,5,7,9,8,5,6,
+                         5,6,5,4,5,4,7,10,10,11,12,
+                         5,6,5,5,6,5,7,5,10,11,12,
+                         5,6,5,6,7,6,7,5,6,6,7
+
+
+0, 0, 10, 0, 0,
+                            0, 0, 10, 10, 0,
+                            10,10,0,0,0,
+                            0,0,10,0,0,
+                            0,0,10,0,0
+
+Algorithm to calculate the view with the most area 
+
+Given set of outside points o
+center point p 
+min view length l
+min view angle a
+    array of views views 
+    each point along line from p to o represtented by q, from q[0] = p to q[l]
+    for each line l in 0 starting from q[p]
+        if q[p] is in the view shed add to a active view v
+            else end view 
+        if there is no active view v create a new one beginnign with q[p]
+
+        for each point q in l 
+            if q is in the view shed add to v 
+
+
+ self.elevations = [ 5,4,6,5,5,5,11,10,10,11,18,
+                          4,10,6,10,5,5,10,10,10,11,11,
+                          3,4,5,6,5,6,9,10,10,11,12,
+                          5,4,5,6,5,7,8,8,8,8,8,
+                          4,4,8,6,5,6,7,8,7,8,8,
+                          5,6,5,4,4,4,7,8,8,8,9,
+                         5,6,5,5,4,5,7,7,8,8,8,
+                         5,4,3,5,5,5,7,9,8,5,6,
+                         5,6,5,4,5,4,7,10,10,11,12,
+                         5,6,5,5,6,5,7,5,10,11,12,
+                         5,6,5,6,7,6,7,5,6,6,7]
+
+
+
+c1 = Coord(0,0,0)
+c2 = Coord(1,0,0)
+c3 = Coord(0,1,0)
+c4 = Coord(1,1,0)
+
+c6 = Coord(0,5,0)
+c7 = Coord(1,5,0)
+c8 = Coord(0,5,0)
+c9 = Coord(1,5,0)
+
+
+v1 = View()
+v2 = View()
+v1.addCoord(c1)
+v1.addCoord(c2)
+v1.addCoord(c3)
+v1.addCoord(c4)
+v2.addCoord(c6)
+v2.addCoord(c7)
+v2.addCoord(c8)
+v2.addCoord(c9)
+
+        print(len(self.dfs1))
+        print(len(self.vs2))
+        vArray = []
+        v1 = View()
+      
+
+        for i in range(len(self.vs)):
+            if(i == 0):
+                v1.addCoord(self.vs2[0])
+
+            elif(i==(len(self.vs2))):
+                check = False
+                for j in range(len(vArray)):
+                    #print("diomg")
+
+                    if(adjacentPointCheck(self.vs2[i],vArray[j].coords) == True):
+                        vArray[j].addCoord(self.vs2[i])
+                        check = True 
+                        break
+
+                if(check == False):
+                    v = View()
+                    v.addCoord(self.vs2[i])
+                    vArray.append(v)
+            else:
+                check = False
+                for j in range(len(vArray)):
+                    #print("diomg")
+                    
+                    if(adjacentPointCheck(self.vs2[i],vArray[j].coords) == True):
+                        vArray[j].addCoord(self.vs2[i])
+                        check = True 
+                        break
+
+                if(check == False):
+                    v = View()
+                    v.addCoord(self.vs2[i])
+                    vArray.append(v)
+
+
+        for i in range(len(vArray)):
+            self.views.append(vArray[i])
+                    
+
+c5 = Coord(1,3,0)
+#print(viewHasCoord(v2.coords,v1.coords))
+addView(v1,v2)
+print(len(v1.coords))
+
+
+
+Hello Professor ___,
+my name is Harrison Kaplan and I am a senior at Lehigh University graduating with a degree in computer 
+science and business. I am currently working on a project with viewsheds and property analysis
+I came accross your algorithm and have implemented it in python. Iwas wondering if I could ask you some questions and possibly
+get your thoughts on what I am working on.
+Thanks very much,
+Harrison K 

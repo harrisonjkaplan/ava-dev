@@ -1,0 +1,14 @@
+Move over to using numpy instead of custom classes
+
+handle case where user gives in valid r and s values where r/s is not a positive whole number
+
+Add flagging options for analytics in api
+
+Unit tests for
+    graph
+    franklin_and_ray
+    olympus 
+    view
+
+Api test
+

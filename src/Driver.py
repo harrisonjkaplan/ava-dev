@@ -2,7 +2,7 @@
 import os
 import traceback
 
-from CustomException import CustomException
+from custom_exception import CustomException
 from Olympus import Olympus
 from Olympians import Olympians 
 from Analytics import Analytics

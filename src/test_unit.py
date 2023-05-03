@@ -12,8 +12,8 @@ class TestAVA(unittest.TestCase):
         self.assertEqual(c.toString(),"(1, 2, 3)")
 
     def test_CoordField(self):
-        cf = CoordField(0,0,.1,1)
+        cf = CoordField(0,0,1,.1)
         cf.fillField()
 
-        self.assertEqual()
+        self.assertEqual(cf.num_steps,10)
 

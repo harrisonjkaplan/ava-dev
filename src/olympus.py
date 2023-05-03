@@ -13,7 +13,7 @@ class Olympus:
         self.h = h 
         self.r = r 
         self.s = s
-        self.cf = CoordField(y,x,r,s)
+        self.cf = CoordField(x,y,r,s)
         self.cf.fillField()
         #print(len(self.cf.xList))
      

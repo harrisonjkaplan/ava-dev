@@ -9,19 +9,20 @@ class CoordField:##coord field takes in the startign coordinates and generates t
         self.s = s 
         self.xList = []
         self.yList = []
-        self.num = r/s
+        self.num_steps = r/s
 
     def fillField(self):
         degPerkilo = 1.0/111.0
         #xStep = self.s*degPerkilo
         #yStep=self.s*(1.0/(111.32*math.cos(math.radians(self.x))))
         yNew = self.y+(self.r*degPerkilo)
-        xNew = self.x-round((self.r*1.0/(111.32*math.cos(math.radians(self.y)))),5) #calculating new latitiudes based on longitiude
+        # xNew = self.x-round((self.r*1.0/(111.32*math.cos(math.radians(self.y)))),5) #calculating new latitiudes based on longitiude
+        xNew = self.x+(self.r*degPerkilo)
         xO = xNew
         #print(self.num)
-        for i in range(int(self.num*2-1)):
+        for i in range(int(self.num_steps*2-1)):
             
-            for j in range(int(self.num*2-1)):
+            for j in range(int(self.num_steps*2-1)):
                 self.xList.append(xNew)
                 self.yList.append(yNew)
                 xNew = round(xNew + (self.s*(1.0/(111.32*math.cos(math.radians(self.y))))),5)

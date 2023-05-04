@@ -17,7 +17,7 @@ class Olympus:
         self.cf.fillField()
         #print(len(self.cf.xList))
      
-        self.ele = ElevationGetter(self.cf.xList,self.cf.yList)
+        self.ele = ElevationGetter(self.cf.longitude_list,self.cf.latitude_list)
         self.elevations = self.ele.getElevation()
        
         self.gr1 = Graph(int(self.r/self.s),self.elevations,self.cf)
@@ -29,7 +29,7 @@ class Olympus:
         #print(list1[0])
     def getAPIReturnList(self):
         APIReturn = []
-        APIReturn2 = reconcileCoords(self.gr1.gList,self.cf.xList,self.cf.yList,self.fAM.vs)
+        APIReturn2 = reconcileCoords(self.gr1.gList,self.cf.longitude_list,self.cf.latitude_list,self.fAM.vs)
         return APIReturn2
             
     def visualize(self,areas,heights):

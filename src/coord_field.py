@@ -1,4 +1,6 @@
 import math
+from haversine import haversine, Unit, inverse_haversine, Direction
+
 class CoordField:##coord field takes in the startign coordinates and generates the grid of coordinates to 
     #be tested for elevation, with the starting x and y centered, it takes into account the current latitude 
     #when calculating the longitudinal distances 
@@ -7,28 +9,18 @@ class CoordField:##coord field takes in the startign coordinates and generates t
         self.y = y
         self.r = r 
         self.s = s 
-        self.xList = []
-        self.yList = []
+        self.longitude_list = []
+        self.latitude_list = []
         self.num_steps = r/s
-
+        
     def fillField(self):
-        degPerkilo = 1.0/111.0
-        #xStep = self.s*degPerkilo
-        #yStep=self.s*(1.0/(111.32*math.cos(math.radians(self.x))))
-        yNew = self.y+(self.r*degPerkilo)
-        # xNew = self.x-round((self.r*1.0/(111.32*math.cos(math.radians(self.y)))),5) #calculating new latitiudes based on longitiude
-        xNew = self.x+(self.r*degPerkilo)
-        xO = xNew
-        #print(self.num)
         for i in range(int(self.num_steps*2-1)):
-            
+            y_new,_ = inverse_haversine((self.y,self.x),self.s*(self.num_steps-1-i),Direction.NORTH)
             for j in range(int(self.num_steps*2-1)):
-                self.xList.append(xNew)
-                self.yList.append(yNew)
-                xNew = round(xNew + (self.s*(1.0/(111.32*math.cos(math.radians(self.y))))),5)
-         
-            yNew = yNew - (self.s*degPerkilo)
-  
-            xNew = xO
+                _,x_new = inverse_haversine((self.y,self.x),self.s*(self.num_steps-1-j),Direction.WEST)
+
+                self.longitude_list.append(x_new)
+                self.latitude_list.append(y_new)
+    
 
 

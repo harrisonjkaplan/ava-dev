@@ -2,10 +2,12 @@ import requests
 from coord_field import CoordField
 from haversine import haversine, Unit, inverse_haversine, Direction
 import math
+from hkb_diamondsquare import DiamondSquare as DS
 
 
 
-# url = "https://ava-iimm3tykgq-uc.a.run.app/coordinate?h=1&r=1&s=.1&longitudeCoord=37&latitudeCoord=82"
+
+# # url = "https://ava-iimm3tykgq-uc.a.run.app/coordinate?h=1&r=1&s=.1&longitudeCoord=37&latitudeCoord=82"
 # url_test = "http://127.0.0.1:5000/testAPI?h=1&r=1&s=.1&longitudeCoord=37&latitudeCoord=82"
 
 # payload={}
@@ -16,23 +18,65 @@ import math
 # response = requests.request("GET", url_test, headers=headers, data=payload)
 # print(len(response.text))
 # print(response.text)
-cf = CoordField(15,-15,3,1)
-cf.fillField()
-# print(cf.xList)
-# print(cf.yList)
+# cf = CoordField(15,-15,3,1)
+# cf.fillField()
+# # print(cf.xList)
+# # print(cf.yList)
+ 
+# import numpy as np
+# import matplotlib.pyplot as plt
+# from mpl_toolkits.mplot3d import Axes3D
 
-print(len(cf.longitude_list))
+# # Generate some random data
+# x = np.random.normal(size=100)
+# y = np.random.normal(size=100)
+# z = np.random.normal(size=100)
+# c = np.random.randint(0, 4, size=100)
 
-d = haversine((cf.latitude_list[0],cf.longitude_list[0]),(cf.latitude_list[1],cf.longitude_list[1]))
-print(d)
-# print(haversine((cf.latitude_list[1],cf.longitude_list[1]),(cf.latitude_list[2],cf.longitude_list[2])))
-# print(haversine((cf.latitude_list[0],cf.longitude_list[0]),(cf.latitude_list[5],cf.longitude_list[5])))
+# # Create a figure and a 3D axis
+# fig = plt.figure()
+# ax = fig.add_subplot(111, projection='3d')
 
-# diff = abs(d - .05)
-# print(diff)
+# # Create the scatter plot
+# scatter = ax.scatter(x, y, z, c=c, cmap='viridis')
 
-# print(f"latitude value: {cf.latitude_list[12]} longitude value: {cf.longitude_list[12]}")
+# # Add a color bar to the plot
+# cbar = plt.colorbar(scatter)
 
+# # Set the labels and title
+# ax.set_xlabel('X Label')
+# ax.set_ylabel('Y Label')
+# ax.set_zlabel('Z Label')
+# plt.title('3D Scatter Plot with Color-Coded Regions')
 
-for i in range(len(cf.latitude_list)):
-    print(f"({cf.longitude_list[i]},{cf.latitude_list[i]})")
+# # Show the plot
+# plt.show()import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Generate the data for the heatmap
+x = np.linspace(-10, 10, 100)
+y = np.linspace(-10, 10, 100)
+X, Y = np.meshgrid(x, y)
+Z = np.sin(np.sqrt(X**2 + Y**2))
+
+# Create a 3D plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot the heatmap surface
+surf = ax.plot_surface(X, Y, Z, cmap='coolwarm', linewidth=0)
+
+# Add a colorbar
+fig.colorbar(surf)
+
+# Set the axis labels and limits
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.set_xlim(-10, 10)
+ax.set_ylim(-10, 10)
+ax.set_zlim(-1, 1)
+
+# Show the plot
+plt.show()

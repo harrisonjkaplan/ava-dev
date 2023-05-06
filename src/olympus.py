@@ -4,7 +4,7 @@ from graph import Graph
 from franklin_and_ray import FranklinAndRay
 from visualizer import Visualizer
 from analytics import Analytics
-from helpers import zList,calcArea,yList,xList,reconcileCoords
+from helpers import zList,calcArea,yList,xList,reconcileCoords, get_fake_elevations
 #class to run the view shed for a single location
 class Olympus:
     def __init__(self,x,y,h,r,s):
@@ -17,8 +17,10 @@ class Olympus:
         self.cf.fillField()
         #print(len(self.cf.xList))
      
-        self.ele = ElevationGetter(self.cf.longitude_list,self.cf.latitude_list)
-        self.elevations = self.ele.getElevation()
+        # self.ele = ElevationGetter(self.cf.longitude_list,self.cf.latitude_list)
+        # self.elevations = self.ele.getElevation()
+        print((r/s)*2-1)
+        self.elevations = get_fake_elevations(int((r/s)*2-1))
        
         self.gr1 = Graph(int(self.r/self.s),self.elevations,self.cf)
         self.fAM = FranklinAndRay(self.gr1,self.h)

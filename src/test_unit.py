@@ -3,6 +3,7 @@ from coord import Coord
 from coord_field import CoordField
 from graph import Graph
 from haversine import haversine, Unit
+from helpers import get_fake_elevations
 
 
 class TestAVA(unittest.TestCase):
@@ -32,9 +33,8 @@ class TestAVA(unittest.TestCase):
         #Within a 9 centimeters of error
         self.assertEqual(dist1_diff<.0009,True)
         self.assertEqual(dist2_diff<.0009,True)
-    
 
-        
-   
-
+    def test_helpers(self):
+        elevations = get_fake_elevations(10)
+        self.assertEqual(len(elevations),100)
 

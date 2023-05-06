@@ -3,8 +3,20 @@ from coord import Coord
 from graph import Graph
 from bresenham import bresenham
 from view import View
+from hkb_diamondsquare import DiamondSquare as DS
+
 #file containing all helper methods used in other classes
-things = [[1,2,3],[4,5,6],[7,8,9]]
+def get_fake_elevations(size):
+    #roughness val can be > 0 and < 1
+    fake_elevations = DS.diamond_square(shape=(size,size), 
+                         min_height=1, 
+                         max_height=25,
+                         roughness=0.01)
+    fake_ele_vals = []
+    for i in range(len(fake_elevations)):
+        for j in range(len(fake_elevations[i])):
+            fake_ele_vals.append(fake_elevations[i][j])
+    return fake_ele_vals
 
 #11/3
 def reconcileCoords(gList,xList,yList,vs):

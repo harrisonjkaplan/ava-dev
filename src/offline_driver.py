@@ -6,9 +6,10 @@ from analytics import Analytics
 
 
 h = 1
-r = 1
-s = .1
-oly = Olympus(37,-82,h,r,s)
+num_steps = 1
+s = .2
+oly = Olympus(37,-82,h,num_steps,s)
+print(oly.gr1.y_list())
 oly.fAM.printViews()
 areas = oly.multH(0,15)
 heights = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
@@ -28,7 +29,7 @@ returnList = oly.getAPIReturnList()
 
 oly.visualize(areas,heights)
 
-ana = Analytics(r,h,s,oly.fAM)
+ana = Analytics(num_steps,h,s,oly.fAM)
 ana.calcPerim()
 ana.calcAngles()
 ana.calcAreas()

@@ -25,8 +25,8 @@ def reconcileCoords(gList,xList,yList,vs):
 
     for i in range(len(vs)):
         x = containsCoord2Index(vs[i],gList)
-        c = Coord(xList[x],yList[x],gList[x].getZ())
-        realCoords.append(c.toString())
+        c = Coord(xList[x],yList[x],gList[x].get_z())
+        realCoords.append(c.to_string())
 
     return realCoords
 
@@ -58,10 +58,10 @@ def dfs(vs,c1):
     x = 1
     i = 0
     while(i<x):
-        p1 = Coord(coords[i].getX()+1,coords[i].getY(),coords[i].getZ())
-        p2 = Coord(coords[i].getX(),coords[i].getY()+1,coords[i].getZ())
-        p3 = Coord(coords[i].getX()-1,coords[i].getY(),coords[i].getZ())
-        p4 = Coord(coords[i].getX(),coords[i].getY()-1,coords[i].getZ())
+        p1 = Coord(coords[i].get_x()+1,coords[i].get_y(),coords[i].get_z())
+        p2 = Coord(coords[i].get_x(),coords[i].get_y()+1,coords[i].get_z())
+        p3 = Coord(coords[i].get_x()-1,coords[i].get_y(),coords[i].get_z())
+        p4 = Coord(coords[i].get_x(),coords[i].get_y()-1,coords[i].get_z())
         if(containsCoord2(p1,vs) == True and containsCoord2(p1,coords) == False):
             x = x + 1
             coords.append(p1)
@@ -141,28 +141,28 @@ def coordsSmasher(lats, longs,numCoords):
     return sArray
 
 
-def xList(vs):
+def x_list(vs):
     xS = []
     for i in range(len(vs)):
-        xS.append(vs[i].getX())
+        xS.append(vs[i].get_x())
     return xS
 def yList(vs):
     yS = []
     for i in range(len(vs)):
-        yS.append(vs[i].getY())
+        yS.append(vs[i].get_y())
     return yS
-def zList(vs):
+def z_list(vs):
     zS = []
     for i in range(len(vs)):
-        zS.append(vs[i].getZ())
+        zS.append(vs[i].get_z())
     return zS
 def bres(g,c1,c2,r):
-    #print(c2.getX())
+    #print(c2.get_x())
 
-    x1 = c1.getX()
-    x2 = c2.getX()
-    y1 = c1.getX()
-    y2 = c2.getY()
+    x1 = c1.get_x()
+    x2 = c2.get_x()
+    y1 = c1.get_y()
+    y2 = c2.get_y()
     coordsList = list(bresenham(x1,y1,x2,y2))
     coords = []
   
@@ -175,9 +175,9 @@ def bres(g,c1,c2,r):
 def getElevation(g,coord,r):
     for i in range(r*2-1):
         for j in range(r*2-1):
-            if(g[i][j].getX() == coord[0]):
-                if (g[i][j].getY() == coord[1]):
-                    return g[i][j].getZ()
+            if(g[i][j].get_x() == coord[0]):
+                if (g[i][j].get_y() == coord[1]):
+                    return g[i][j].get_z()
 def containsCoord(g,c2,r):
     
     for i in range (r*2-1):
@@ -188,10 +188,10 @@ def containsCoord(g,c2,r):
                 return True
     return False
 def adjacentPointCheck(c1,views):
-    p1 = Coord(c1.getX()+1,c1.getY(),c1.getZ())
-    p2 = Coord(c1.getX(),c1.getY()+1,c1.getZ())
-    p3 = Coord(c1.getX()-1,c1.getY(),c1.getZ())
-    p4 = Coord(c1.getX(),c1.getY()-1,c1.getZ())
+    p1 = Coord(c1.get_x()+1,c1.get_y(),c1.get_z())
+    p2 = Coord(c1.get_x(),c1.get_y()+1,c1.get_z())
+    p3 = Coord(c1.get_x()-1,c1.get_y(),c1.get_z())
+    p4 = Coord(c1.get_x(),c1.get_y()-1,c1.get_z())
     if(containsCoord2(p1,views) == True):
         return True
     if(containsCoord2(p2,views) == True):
@@ -250,9 +250,9 @@ def addView(v1,v2):
         v1.addCoord(v2.coords[i])
     return False
 def coordsEqual(c1,c2):
-    if c1.getX() == c2.getX():
+    if c1.get_x() == c2.get_x():
         
-        if c1.getY() == c2.getY():
+        if c1.get_y() == c2.get_y():
 
             return True
         else:
@@ -263,27 +263,27 @@ def coordsEqual(c1,c2):
 
 def slope(c1,c2,h):
     
-    return (c2.getZ()-(c1.getZ()+h)) /math.sqrt(((c2.getX()- c1.getX()) ** 2 + (c2.getY()- c1.getY()) ** 2))
+    return (c2.get_z()-(c1.get_z()+h)) /math.sqrt(((c2.get_x()- c1.get_x()) ** 2 + (c2.get_y()- c1.get_y()) ** 2))
 
 def getPerimeter(gr1):
     cells = []
     #get top row 
-    for i in range(gr1.r*2-1):
-        #print(gr1.g[0][i].getX(), end = ", ")
-       # print(gr1.g[0][i].getY())
-        cells.append(gr1.g[0][i])
+    for i in range(gr1.num_steps*2-1):
+        #print(gr1.g[0][i].get_x(), end = ", ")
+       # print(gr1.g[0][i].get_y())
+        cells.append(gr1.grid[0][i])
     #get bottom row 
-    for i in range(gr1.r*2-1):
-        cells.append(gr1.g[gr1.r*2-2][i])
-       # print(gr1.g[r*2-2][i].getX(), end = ", ")
-        #print(gr1.g[r*2-2][i].getY())
+    for i in range(gr1.num_steps*2-1):
+        cells.append(gr1.grid[gr1.num_steps*2-2][i])
+       # print(gr1.g[r*2-2][i].get_x(), end = ", ")
+        #print(gr1.g[r*2-2][i].get_y())
     #get left column 
-    for i in range(1, gr1.r*2-2):
-        cells.append(gr1.g[i][0])
-       # print(gr1.g[i][0].getX(), end = ", ")
-       # print(gr1.g[i][0].getY())
-    for i in range(1, gr1.r*2-2):
-        cells.append(gr1.g[i][gr1.r*2-2])
+    for i in range(1, gr1.num_steps*2-2):
+        cells.append(gr1.grid[i][0])
+       # print(gr1.g[i][0].get_x(), end = ", ")
+       # print(gr1.g[i][0].get_y())
+    for i in range(1, gr1.num_steps*2-2):
+        cells.append(gr1.grid[i][gr1.num_steps*2-2])
 
     return cells 
     

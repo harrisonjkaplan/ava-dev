@@ -1,5 +1,4 @@
-import math
-from haversine import haversine, Unit, inverse_haversine, Direction
+from haversine import inverse_haversine, Direction
 
 class CoordField:##coord field takes in the startign coordinates and generates the grid of coordinates to 
     #be tested for elevation, with the starting x and y centered, it takes into account the current latitude 
@@ -12,8 +11,8 @@ class CoordField:##coord field takes in the startign coordinates and generates t
         self.longitude_list = []
         self.latitude_list = []
         self.num_steps = r/s
-        
-    def fillField(self):
+
+    def fill_field(self):
         for i in range(int(self.num_steps*2-1)):
             y_new,_ = inverse_haversine((self.y,self.x),self.s*(self.num_steps-1-i),Direction.NORTH)
             for j in range(int(self.num_steps*2-1)):

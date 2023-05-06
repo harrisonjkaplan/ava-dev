@@ -4,7 +4,7 @@ from graph import Graph
 from franklin_and_ray import FranklinAndRay
 from visualizer import Visualizer
 from analytics import Analytics
-from helpers import zList,calcArea,yList,xList,reconcileCoords, get_fake_elevations
+from helpers import z_list,calcArea,yList,x_list,reconcileCoords, get_fake_elevations
 #class to run the view shed for a single location
 class Olympus:
     def __init__(self,x,y,h,r,s):
@@ -14,7 +14,7 @@ class Olympus:
         self.r = r 
         self.s = s
         self.cf = CoordField(x,y,r,s)
-        self.cf.fillField()
+        self.cf.fill_field()
         #print(len(self.cf.xList))
      
         # self.ele = ElevationGetter(self.cf.longitude_list,self.cf.latitude_list)
@@ -22,7 +22,7 @@ class Olympus:
         print((r/s)*2-1)
         self.elevations = get_fake_elevations(int((r/s)*2-1))
        
-        self.gr1 = Graph(int(self.r/self.s),self.elevations,self.cf)
+        self.gr1 = Graph(int(self.r/self.s),self.elevations)
         self.fAM = FranklinAndRay(self.gr1,self.h)
         self.fAM.runFranklinAndRay()
         self.fAM.calcViews()
@@ -31,18 +31,18 @@ class Olympus:
         #print(list1[0])
     def getAPIReturnList(self):
         APIReturn = []
-        APIReturn2 = reconcileCoords(self.gr1.gList,self.cf.longitude_list,self.cf.latitude_list,self.fAM.vs)
+        APIReturn2 = reconcileCoords(self.gr1.grid_list,self.cf.longitude_list,self.cf.latitude_list,self.fAM.vs)
         return APIReturn2
             
     def visualize(self,areas,heights):
 
-        xS = self.gr1.xList()
-        yS = self.gr1.yList()
-        zS = self.gr1.zList()
-        xS2 = xList(self.fAM.vs)
+        xS = self.gr1.x_list()
+        yS = self.gr1.y_list()
+        zS = self.gr1.z_list()
+        xS2 = x_list(self.fAM.vs)
 
         yS2 = yList(self.fAM.vs)
-        zS2 = zList(self.fAM.vs)
+        zS2 = z_list(self.fAM.vs)
    
 
         v = Visualizer(xS,yS,zS,xS2,yS2,zS2,areas,heights)

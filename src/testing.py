@@ -3,6 +3,7 @@ from coord_field import CoordField
 from haversine import haversine, Unit, inverse_haversine, Direction
 import math
 from hkb_diamondsquare import DiamondSquare as DS
+from graph import Graph
 
 
 
@@ -50,33 +51,33 @@ from hkb_diamondsquare import DiamondSquare as DS
 # plt.title('3D Scatter Plot with Color-Coded Regions')
 
 # # Show the plot
-# plt.show()import matplotlib.pyplot as plt
-import matplotlib.pyplot as plt
-import numpy as np
+# # plt.show()import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
+# import numpy as np
 
-# Generate the data for the heatmap
-x = np.linspace(-10, 10, 100)
-y = np.linspace(-10, 10, 100)
-X, Y = np.meshgrid(x, y)
-Z = np.sin(np.sqrt(X**2 + Y**2))
+# # Generate the data for the heatmap
+# x = np.linspace(-10, 10, 100)
+# y = np.linspace(-10, 10, 100)
+# X, Y = np.meshgrid(x, y)
+# Z = np.sin(np.sqrt(X**2 + Y**2))
 
-# Create a 3D plot
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+# # Create a 3D plot
+# fig = plt.figure()
+# ax = fig.add_subplot(111, projection='3d')
 
-# Plot the heatmap surface
-surf = ax.plot_surface(X, Y, Z, cmap='coolwarm', linewidth=0)
+# # Plot the heatmap surface
+# surf = ax.plot_surface(X, Y, Z, cmap='coolwarm', linewidth=0)
 
-# Add a colorbar
-fig.colorbar(surf)
+# # Add a colorbar
+# fig.colorbar(surf)
 
-# Set the axis labels and limits
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
-ax.set_xlim(-10, 10)
-ax.set_ylim(-10, 10)
-ax.set_zlim(-1, 1)
+# # Set the axis labels and limits
+# ax.set_xlabel('X')
+# ax.set_ylabel('Y')
+# ax.set_zlabel('Z')
+# ax.set_xlim(-10, 10)
+# ax.set_ylim(-10, 10)
+# ax.set_zlim(-1, 1)
 
-# Show the plot
-plt.show()
+# # Show the plot
+# plt.show()

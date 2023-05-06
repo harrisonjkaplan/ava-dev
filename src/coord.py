@@ -5,13 +5,13 @@ class Coord:
         self.y = y 
         self.z = z 
 
-    def getX(self):
+    def get_x(self):
         return self.x
-    def getY(self):
+    def get_y(self):
         return self.y
-    def getZ(self):
+    def get_z(self):
         return self.z
-    def print2d(self):
+    def print_2d(self):
         print('(' + str(self.x) + ', ' + str(self.y) + ')')
 
     def toString(self):

@@ -3,7 +3,7 @@ from helpers import getPerimeter, slope,coordsEqual,containsCoord,bres,containsC
 from bresenham import bresenham
 from coord import Coord
 from view import View
-
+from graph import Graph
 
 class FranklinAndRay:
     def __init__(self,gr1,h): 
@@ -18,9 +18,9 @@ class FranklinAndRay:
 
 #implementation of franklinandray's algorithm for calculating view shed
     def runFranklinAndRay(self):
-        px = self.gr1.g[self.gr1.r-1][self.gr1.r-1].getX()
-        py = self.gr1.g[self.gr1.r-1][self.gr1.r-1].getY()
-        pz = self.gr1.g[self.gr1.r-1][self.gr1.r-1].getZ()
+        px = self.gr1.grid[self.gr1.num_steps-1][self.gr1.num_steps-1].get_x()
+        py = self.gr1.grid[self.gr1.num_steps-1][self.gr1.num_steps-1].get_y()
+        pz = self.gr1.grid[self.gr1.num_steps-1][self.gr1.num_steps-1].get_z()
         p = Coord(px,py,pz)
         self.q = getPerimeter(self.gr1) 
 
@@ -28,7 +28,7 @@ class FranklinAndRay:
         for i in range(len(self.q)):
             u=-1000000
         
-            line = bres(self.gr1.g,p,self.q[i],self.gr1.r)
+            line = bres(self.gr1.grid,p,self.q[i],self.gr1.num_steps)
             l1 = []
             for j in range(len(line)-1):
                 mi = slope(p,line[j+1],self.h)
@@ -39,15 +39,15 @@ class FranklinAndRay:
                     if(containsCoord2(line[j+1],self.vs) == False):
                         self.vs.append(line[j+1])
                         l1.append(line[j+1])
-                        #print(line[j+1].getX(),end = ", ")
-                        #print(line[j+1].getY(), end = ", ")
+                        #print(line[j+1].get_x(),end = ", ")
+                        #print(line[j+1].get_y(), end = ", ")
                         #print(line[j+1].getZ())
             self.lines.append(l1)
             
 
     def calcViews(self):
         
-        self.vs2 = orderVS(self.vs,self.gr1.r)
+        self.vs2 = orderVS(self.vs,self.gr1.num_steps)
         dfs1 = dfs(self.vs2,self.vs2[0])
         v1 = View()
         v1.addCoord(dfs1)

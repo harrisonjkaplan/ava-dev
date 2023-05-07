@@ -68,3 +68,22 @@ class FranklinAndRay:
             #print(i)
             #self.views[i].getCoords()
             x = 0
+
+
+    def x_list(self):
+        xS = []
+        for i in range(len(self.vs)):
+             xS.append(self.vs[i].get_x())
+        return xS
+    
+    def y_list(self):
+        yS = []
+        for i in range(len(self.vs)):
+            yS.append(self.vs[i].get_y())
+        return yS
+    
+    def z_list(self):
+        zS = []
+        for i in range(len(self.vs)):
+            zS.append(self.vs[i].get_z())
+        return zS

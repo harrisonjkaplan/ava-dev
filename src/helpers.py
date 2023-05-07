@@ -141,21 +141,7 @@ def coordsSmasher(lats, longs,numCoords):
     return sArray
 
 
-def x_list(vs):
-    xS = []
-    for i in range(len(vs)):
-        xS.append(vs[i].get_x())
-    return xS
-def yList(vs):
-    yS = []
-    for i in range(len(vs)):
-        yS.append(vs[i].get_y())
-    return yS
-def z_list(vs):
-    zS = []
-    for i in range(len(vs)):
-        zS.append(vs[i].get_z())
-    return zS
+
 def bres(g,c1,c2,r):
     #print(c2.get_x())
 

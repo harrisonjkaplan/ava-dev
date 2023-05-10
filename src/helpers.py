@@ -251,25 +251,21 @@ def slope(c1,c2,h):
     
     return (c2.get_z()-(c1.get_z()+h)) /math.sqrt(((c2.get_x()- c1.get_x()) ** 2 + (c2.get_y()- c1.get_y()) ** 2))
 
-def getPerimeter(gr1):
+def get_perimeter(graph):
     cells = []
     #get top row 
-    for i in range(gr1.num_steps*2-1):
-        #print(gr1.g[0][i].get_x(), end = ", ")
-       # print(gr1.g[0][i].get_y())
-        cells.append(gr1.grid[0][i])
+    for i in range(graph.num_steps*2-1):
+        cells.append(graph.grid[0][i])
     #get bottom row 
-    for i in range(gr1.num_steps*2-1):
-        cells.append(gr1.grid[gr1.num_steps*2-2][i])
-       # print(gr1.g[r*2-2][i].get_x(), end = ", ")
-        #print(gr1.g[r*2-2][i].get_y())
+    for i in range(graph.num_steps*2-1):
+        cells.append(graph.grid[graph.num_steps*2-2][i])
+
     #get left column 
-    for i in range(1, gr1.num_steps*2-2):
-        cells.append(gr1.grid[i][0])
-       # print(gr1.g[i][0].get_x(), end = ", ")
-       # print(gr1.g[i][0].get_y())
-    for i in range(1, gr1.num_steps*2-2):
-        cells.append(gr1.grid[i][gr1.num_steps*2-2])
+    for i in range(1, graph.num_steps*2-2):
+        cells.append(graph.grid[i][0])
+
+    for i in range(1, graph.num_steps*2-2):
+        cells.append(graph.grid[i][graph.num_steps*2-2])
 
     return cells 
     

@@ -19,40 +19,35 @@ class Olympus:
      
         # self.ele = ElevationGetter(self.cf.longitude_list,self.cf.latitude_list)
         # self.elevations = self.ele.getElevation()
-        print((r/s)*2-1)
         self.elevations = get_fake_elevations(int((r/s)*2-1))
        
-        self.gr1 = Graph(int(self.r/self.s),self.elevations)
-        self.fAM = FranklinAndRay(self.gr1,self.h)
-        self.fAM.runFranklinAndRay()
-        self.fAM.calcViews()
+        self.graph = Graph(int(self.r/self.s),self.elevations)
+        self.fam = FranklinAndRay(self.graph,self.h)
+        self.fam.runFranklinAndRay()
+        self.fam.calcViews()
 
-
-        #print(list1[0])
     def getAPIReturnList(self):
         APIReturn = []
-        APIReturn2 = reconcileCoords(self.gr1.grid_list,self.cf.longitude_list,self.cf.latitude_list,self.fAM.vs)
+        APIReturn2 = reconcileCoords(self.graph.grid_list,self.cf.longitude_list,self.cf.latitude_list,self.fam.vs)
         return APIReturn2
             
     def visualize(self,areas,heights):
-
-        xS = self.gr1.x_list()
-        yS = self.gr1.y_list()
-        zS = self.gr1.z_list()
-        xS2 = self.fAM.x_list()
-
-        yS2 = self.fAM.y_list()
-        zS2 = self.fAM.z_list()
-   
+        xS = self.graph.x_list()
+        yS = self.graph.y_list()
+        zS = self.graph.z_list()
+        xS2 = self.fam.x_list()
+        yS2 = self.fam.y_list()
+        zS2 = self.fam.z_list()
 
         v = Visualizer(xS,yS,zS,xS2,yS2,zS2,areas,heights)
         v.visualize()
+
     def multH(self, low,high):
         x = high - low
         areas = []
         for i in range(x):
             newH = low + i
-            fAMx = FranklinAndRay(self.gr1,newH)
+            fAMx = FranklinAndRay(self.graph,newH)
             fAMx.runFranklinAndRay()
             fAMx.calcViews()
             anax = Analytics(self.r,newH,self.s,fAMx)

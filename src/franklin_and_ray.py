@@ -1,37 +1,35 @@
 import math 
-from helpers import getPerimeter, slope,coordsEqual,containsCoord,bres,containsCoord2, adjacentPointCheck,orderVS,dfs,differenceofViews
+from helpers import get_perimeter, slope,coordsEqual,containsCoord,bres,containsCoord2, adjacentPointCheck,orderVS,dfs,differenceofViews
 from bresenham import bresenham
 from coord import Coord
 from view import View
 from graph import Graph
-
+import numpy as np
 class FranklinAndRay:
-    def __init__(self,gr1,h): 
-        self.gr1 = gr1 #graph of easier coordinates from Graph.py
+    def __init__(self,graph,h): 
+        self.graph = graph #graph of easier coordinates from Graph.py
         self.h = h
         self.lines = []
         self.vs = []
-        self.q = []#perimeter
+        self.perimeter = []#perimeter
         self.views = []
         self.vs2 = []
 
 
 #implementation of franklinandray's algorithm for calculating view shed
     def runFranklinAndRay(self):
-        px = self.gr1.grid[self.gr1.num_steps-1][self.gr1.num_steps-1].get_x()
-        py = self.gr1.grid[self.gr1.num_steps-1][self.gr1.num_steps-1].get_y()
-        pz = self.gr1.grid[self.gr1.num_steps-1][self.gr1.num_steps-1].get_z()
-        p = Coord(px,py,pz)
-        self.q = getPerimeter(self.gr1) 
+        observer_x_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].get_x()
+        observer_y_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].get_y()
+        observer_ele_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].get_z()
+        obs = Coord(observer_x_val,observer_y_val,observer_ele_val)
+        self.perimeter = get_perimeter(self.graph) 
 
-
-        for i in range(len(self.q)):
+        for i in range(len(self.perimeter)):
             u=-1000000
-        
-            line = bres(self.gr1.grid,p,self.q[i],self.gr1.num_steps)
+            line = bres(self.graph.grid,obs,self.perimeter[i],self.graph.num_steps)
             l1 = []
             for j in range(len(line)-1):
-                mi = slope(p,line[j+1],self.h)
+                mi = slope(obs,line[j+1],self.h)
                 
                 if(mi>=u):
                     u = mi
@@ -39,15 +37,12 @@ class FranklinAndRay:
                     if(containsCoord2(line[j+1],self.vs) == False):
                         self.vs.append(line[j+1])
                         l1.append(line[j+1])
-                        #print(line[j+1].get_x(),end = ", ")
-                        #print(line[j+1].get_y(), end = ", ")
-                        #print(line[j+1].getZ())
             self.lines.append(l1)
             
 
     def calcViews(self):
         
-        self.vs2 = orderVS(self.vs,self.gr1.num_steps)
+        self.vs2 = orderVS(self.vs,self.graph.num_steps)
         dfs1 = dfs(self.vs2,self.vs2[0])
         v1 = View()
         v1.addCoord(dfs1)
@@ -87,3 +82,9 @@ class FranklinAndRay:
         for i in range(len(self.vs)):
             zS.append(self.vs[i].get_z())
         return zS
+    
+    def get_z_val(self,x,y):
+        for coord in self.vs:
+            if coord.x == x and coord.y == y:
+                return coord.z
+        return "coord does not exist"

@@ -14,5 +14,5 @@ class Coord:
     def print_2d(self):
         print('(' + str(self.x) + ', ' + str(self.y) + ')')
 
-    def toString(self):
+    def to_string(self):
         return('(' + str(self.x) + ', ' + str(self.y)  + ', ' + str(self.z)+ ')')

@@ -44,7 +44,7 @@ def generate_result():
         
         print(f'h: {h}, r: {r}, s:{s}, longitudeCoord:{longitudeCoord}, latitudeCoord:{latitudeCoord}')
         oly = Olympus(longitudeCoord,latitudeCoord,h,r,s)
-        oly.fAM.printViews()
+        oly.fam.printViews()
         areas = oly.multH(0,15)
         heights = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
 
@@ -53,7 +53,7 @@ def generate_result():
         
         # oly.visualize(areas,heights)
 
-        ana = Analytics(r,h,s,oly.fAM)
+        ana = Analytics(r,h,s,oly.fam)
         ana.calcPerim()
         ana.calcAngles()
         ana.calcAreas()
@@ -76,7 +76,7 @@ def generate_result2():
         
         print(f'h: {h}, r: {r}, s:{s}, longitudeCoord:{longitudeCoord}, latitudeCoord:{latitudeCoord}')
         oly = Olympus(longitudeCoord,latitudeCoord,h,r,s)
-        oly.fAM.printViews()
+        oly.fam.printViews()
         areas = oly.multH(0,15)
         heights = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
 
@@ -85,7 +85,7 @@ def generate_result2():
         
         # oly.visualize(areas,heights)
 
-        ana = Analytics(r,h,s,oly.fAM)
+        ana = Analytics(r,h,s,oly.fam)
         ana.calcPerim()
         ana.calcAngles()
         ana.calcAreas()

@@ -3,8 +3,9 @@ from coord import Coord
 from coord_field import CoordField
 from graph import Graph
 from haversine import haversine, Unit
-from helpers import get_fake_elevations
+from helpers import get_fake_elevations, get_perimeter, contains_coord, coords_equal
 import random
+from franklin_and_ray import FranklinAndRay
 
 
 class TestAVA(unittest.TestCase):
@@ -52,9 +53,67 @@ class TestAVA(unittest.TestCase):
         self.assertEqual(g.y_list(),fake_y_list)
         self.assertEqual(g.z_list(),random_elevations)
 
+    def test_frankling_and_ray(self):
+        #Fake elevations where I know the vs
+        ele_vals = [2,2,2,2,2,
+                    2,1,1,1,2,
+                    2,1,0,1,2,
+                    2,1,1,1,2,
+                    2,2,2,2,2]
+        
+
+        graph = Graph(3,ele_vals)
+        fam = FranklinAndRay(graph, 0)
+        self.assertEqual(len(graph.grid),5)
+        
+        fam.runFranklinAndRay()
+        self.assertEqual(len(fam.vs),24)
+
 
 
     def test_helpers(self):
+        #test get_fake_elevations
         elevations = get_fake_elevations(10)
         self.assertEqual(len(elevations),100)
+
+        #test get_perimeter
+        ele_vals = [2,2,2,2,2,
+                    2,1,1,1,2,
+                    2,1,0,1,2,
+                    2,1,1,1,2,
+                    2,2,2,2,2]
+        
+
+        graph = Graph(3,ele_vals)
+        perimeter = get_perimeter(graph)
+        self.assertEqual((len(perimeter)),16)
+        self.assertEqual(perimeter[0].get_x(),-2)
+        self.assertEqual(perimeter[4].get_x(),2)
+        self.assertEqual(perimeter[6].get_x(),-1)
+        self.assertEqual(perimeter[15].get_x(),2)
+
+        self.assertEqual(perimeter[0].get_y(),2)
+        self.assertEqual(perimeter[4].get_y(),2)
+        self.assertEqual(perimeter[6].get_y(),-2)
+        self.assertEqual(perimeter[15].get_y(),-1)
+
+
+        #test coords equal and contains coord
+        c1 = Coord(1,2,3)
+        c2 = Coord(4,5,6)
+        c3 = Coord(1,2,3)
+        c4 = Coord(7,8,9)
+
+        self.assertTrue(coords_equal(c1,c3))
+        self.assertFalse(coords_equal(c1,c2))
+        coords_list = [c1,c2,c3]
+        self.assertTrue(contains_coord(c1,coords_list))
+        self.assertFalse(contains_coord(c4,coords_list))
+
+
+
+
+
+
+
 

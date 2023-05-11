@@ -62,16 +62,16 @@ def dfs(vs,c1):
         p2 = Coord(coords[i].get_x(),coords[i].get_y()+1,coords[i].get_z())
         p3 = Coord(coords[i].get_x()-1,coords[i].get_y(),coords[i].get_z())
         p4 = Coord(coords[i].get_x(),coords[i].get_y()-1,coords[i].get_z())
-        if(containsCoord2(p1,vs) == True and containsCoord2(p1,coords) == False):
+        if(contains_coord(p1,vs) == True and contains_coord(p1,coords) == False):
             x = x + 1
             coords.append(p1)
-        if(containsCoord2(p2,vs) == True and containsCoord2(p2,coords) == False):
+        if(contains_coord(p2,vs) == True and contains_coord(p2,coords) == False):
             x = x + 1
             coords.append(p2)
-        if(containsCoord2(p3,vs) == True and containsCoord2(p3,coords) == False):
+        if(contains_coord(p3,vs) == True and contains_coord(p3,coords) == False):
             x = x + 1
             coords.append(p3)
-        if(containsCoord2(p4,vs) == True and containsCoord2(p4,coords) == False):
+        if(contains_coord(p4,vs) == True and contains_coord(p4,coords) == False):
             x = x + 1
             coords.append(p4)
         i = i +1
@@ -141,36 +141,31 @@ def coordsSmasher(lats, longs,numCoords):
     return sArray
 
 
-
-def bres(g,c1,c2,r):
-    #print(c2.get_x())
-
+def bres(g,c1,c2,num_steps):
     x1 = c1.get_x()
     x2 = c2.get_x()
     y1 = c1.get_y()
     y2 = c2.get_y()
-    coordsList = list(bresenham(x1,y1,x2,y2))
+    coords_list = list(bresenham(x1,y1,x2,y2))
     coords = []
   
-    for i in range(len(coordsList)):
-        c = Coord(coordsList[i][0],coordsList[i][1],getElevation(g,coordsList[i],r))
+    for i in range(len(coords_list)):
+        c = Coord(coords_list[i][0],coords_list[i][1],get_elevation(g,coords_list[i],num_steps))
         coords.append(c)
     return coords
 
-
-def getElevation(g,coord,r):
+def get_elevation(g,coord,r):
     for i in range(r*2-1):
         for j in range(r*2-1):
-            if(g[i][j].get_x() == coord[0]):
-                if (g[i][j].get_y() == coord[1]):
-                    return g[i][j].get_z()
+            if(g[i][j].get_x() == coord[0]) and (g[i][j].get_y() == coord[1]):
+                return g[i][j].get_z()
 def containsCoord(g,c2,r):
     
     for i in range (r*2-1):
         for j in range(r*2-1):
             c1 = g[i][j]
             
-            if(coordsEqual(c1,c2)):
+            if(coords_equal(c1,c2)):
                 return True
     return False
 def adjacentPointCheck(c1,views):
@@ -178,32 +173,33 @@ def adjacentPointCheck(c1,views):
     p2 = Coord(c1.get_x(),c1.get_y()+1,c1.get_z())
     p3 = Coord(c1.get_x()-1,c1.get_y(),c1.get_z())
     p4 = Coord(c1.get_x(),c1.get_y()-1,c1.get_z())
-    if(containsCoord2(p1,views) == True):
+    if(contains_coord(p1,views) == True):
         return True
-    if(containsCoord2(p2,views) == True):
+    if(contains_coord(p2,views) == True):
         return True
-    if(containsCoord2(p3,views) == True):
+    if(contains_coord(p3,views) == True):
         return True
-    if(containsCoord2(p4,views) == True):
+    if(contains_coord(p4,views) == True):
         return True
     
     return False
     
-def containsCoord2(c2,coords):
-    for i in range(len(coords)):
-        if(coordsEqual(c2,coords[i])):
+def contains_coord(coord,coords_list):
+    for i in range(len(coords_list)):
+        if(coords_equal(coord,coords_list[i])):
             return True
     return False
+
 def containsCoord2Index(c2,coords):
     for i in range(len(coords)):
-        if(coordsEqual(c2,coords[i])):
+        if(coords_equal(c2,coords[i])):
             return i
     return -1
 
 def viewHasCoord(coords1,coords2):
     for i in range(len(coords2)):
         for j in range(len(coords1)):
-            if(coordsEqual(coords1[j],coords2[i]) == True):
+            if(coords_equal(coords1[j],coords2[i]) == True):
                 return True
 def differenceofViews(v1,vs):
     coords = []
@@ -211,7 +207,7 @@ def differenceofViews(v1,vs):
         check = False
         for j in range(len(v1)):
             
-            if(coordsEqual(v1[j],vs[i]) == True):
+            if(coords_equal(v1[j],vs[i]) == True):
                 check = True
         if(check== False):
             coords.append(vs[i])
@@ -222,7 +218,7 @@ def sameofViews(v1,vs):
     for i in range(len(vs)):
         check = False
         for j in range(len(v1)):
-            if(coordsEqual(v1[j],vs[i]) == True):
+            if(coords_equal(v1[j],vs[i]) == True):
                 check = True
         if(check== True):
             coords.append(vs[i])
@@ -235,38 +231,32 @@ def addView(v1,v2):
     for i in range(len(v2.coords)):
         v1.addCoord(v2.coords[i])
     return False
-def coordsEqual(c1,c2):
-    if c1.get_x() == c2.get_x():
-        
-        if c1.get_y() == c2.get_y():
-
-            return True
-        else:
-            return False
-    else:   
+def coords_equal(c1,c2):
+    if c1.get_x() == c2.get_x() and c1.get_y() == c2.get_y():
+        return True
+    else:
         return False
-
 
 def slope(c1,c2,h):
     
     return (c2.get_z()-(c1.get_z()+h)) /math.sqrt(((c2.get_x()- c1.get_x()) ** 2 + (c2.get_y()- c1.get_y()) ** 2))
 
 def get_perimeter(graph):
-    cells = []
+    perimeter_coords = []
     #get top row 
     for i in range(graph.num_steps*2-1):
-        cells.append(graph.grid[0][i])
+        perimeter_coords.append(graph.grid[0][i])
     #get bottom row 
     for i in range(graph.num_steps*2-1):
-        cells.append(graph.grid[graph.num_steps*2-2][i])
+        perimeter_coords.append(graph.grid[graph.num_steps*2-2][i])
 
     #get left column 
     for i in range(1, graph.num_steps*2-2):
-        cells.append(graph.grid[i][0])
+        perimeter_coords.append(graph.grid[i][0])
 
     for i in range(1, graph.num_steps*2-2):
-        cells.append(graph.grid[i][graph.num_steps*2-2])
+        perimeter_coords.append(graph.grid[i][graph.num_steps*2-2])
 
-    return cells 
+    return perimeter_coords 
     
     

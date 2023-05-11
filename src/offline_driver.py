@@ -5,11 +5,10 @@ from analytics import Analytics
 #driver of code
 
 
-h = 1
+h = 0
 r = 3
 s = 1
 oly = Olympus(37,-82,h,r,s)
-print(oly.graph.x_list())
 oly.fam.printViews()
 areas = oly.multH(0,15)
 heights = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]

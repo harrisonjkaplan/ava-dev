@@ -1,5 +1,5 @@
 import math 
-from helpers import get_perimeter, slope,coordsEqual,containsCoord,bres,containsCoord2, adjacentPointCheck,orderVS,dfs,differenceofViews
+from helpers import get_perimeter, slope,coords_equal,containsCoord,bres,contains_coord, adjacentPointCheck,orderVS,dfs,differenceofViews, get_elevation
 from bresenham import bresenham
 from coord import Coord
 from view import View
@@ -27,6 +27,7 @@ class FranklinAndRay:
         for i in range(len(self.perimeter)):
             u=-1000000
             line = bres(self.graph.grid,obs,self.perimeter[i],self.graph.num_steps)
+              
             l1 = []
             for j in range(len(line)-1):
                 mi = slope(obs,line[j+1],self.h)
@@ -34,7 +35,7 @@ class FranklinAndRay:
                 if(mi>=u):
                     u = mi
                     
-                    if(containsCoord2(line[j+1],self.vs) == False):
+                    if(contains_coord(line[j+1],self.vs) == False):
                         self.vs.append(line[j+1])
                         l1.append(line[j+1])
             self.lines.append(l1)

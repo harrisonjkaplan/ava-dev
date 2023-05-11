@@ -24,7 +24,7 @@ def reconcileCoords(gList,xList,yList,vs):
     realCoords = []
 
     for i in range(len(vs)):
-        x = containsCoord2Index(vs[i],gList)
+        x = contains_coord_index(vs[i],gList)
         c = Coord(xList[x],yList[x],gList[x].get_z())
         realCoords.append(c.to_string())
 
@@ -35,22 +35,22 @@ def calcArea(x,d):
     return d*d*x
 
 
-def orderVS(vs,r):
-    newVS = []
+def order_vs(vs,r):
+    ordered_vs = []
   
-    yNum = -((r*2)-1)
-    while(yNum <= r*2-1):
-        xNum = -((r*2)-1)
-        while(xNum <= r*2-1):
-            c1 = Coord(xNum,yNum,0)
-            index = containsCoord2Index(c1,vs)
+    y = -((r*2)-1)
+    while(y <= r*2-1):
+        x = -((r*2)-1)
+        while(x <= r*2-1):
+            c1 = Coord(x,y,0)
+            index = contains_coord_index(c1,vs)
             if(index == -1):
-                xNum = xNum + 1
+                x = x + 1
             else: 
-                newVS.append(vs[index])
-                xNum = xNum + 1
-        yNum = yNum + 1
-    return newVS
+                ordered_vs.append(vs[index])
+                x = x + 1
+        y = y + 1
+    return ordered_vs
 
 
 def dfs(vs,c1):
@@ -190,9 +190,9 @@ def contains_coord(coord,coords_list):
             return True
     return False
 
-def containsCoord2Index(c2,coords):
-    for i in range(len(coords)):
-        if(coords_equal(c2,coords[i])):
+def contains_coord_index(coord,coords_list):
+    for i in range(len(coords_list)):
+        if(coords_equal(coord,coords_list[i])):
             return i
     return -1
 

@@ -1,5 +1,5 @@
 import math 
-from helpers import get_perimeter, slope,coords_equal,containsCoord,bres,contains_coord, adjacentPointCheck,orderVS,dfs,differenceofViews, get_elevation
+from helpers import get_perimeter, slope,coords_equal,containsCoord,bres,contains_coord, adjacentPointCheck,order_vs,dfs,differenceofViews, get_elevation
 from bresenham import bresenham
 from coord import Coord
 from view import View
@@ -13,7 +13,7 @@ class FranklinAndRay:
         self.vs = []
         self.perimeter = []#perimeter
         self.views = []
-        self.vs2 = []
+        self.ordered_vs = []
 
 
 #implementation of franklinandray's algorithm for calculating view shed
@@ -41,20 +41,19 @@ class FranklinAndRay:
             self.lines.append(l1)
             
 
-    def calcViews(self):
-        
-        self.vs2 = orderVS(self.vs,self.graph.num_steps)
-        dfs1 = dfs(self.vs2,self.vs2[0])
+    def calc_views(self):
+        self.ordered_vs = order_vs(self.vs,self.graph.num_steps)
+        dfs1 = dfs(self.ordered_vs,self.ordered_vs[0])
         v1 = View()
-        v1.addCoord(dfs1)
+        v1.add_coords(dfs1)
         self.views.append(v1)
         i = 0
-        coordsLeft = differenceofViews(dfs1,self.vs2)
+        coordsLeft = differenceofViews(dfs1,self.ordered_vs)
 
         while(0<len(coordsLeft)):
             dfsi = dfs(coordsLeft,coordsLeft[0])
             vi = View()
-            vi.addCoord(dfsi)
+            vi.add_coords(dfsi)
             self.views.append(vi)
             coordsLeft = differenceofViews(dfsi,coordsLeft)
 

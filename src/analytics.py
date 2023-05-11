@@ -18,7 +18,7 @@ class Analytics:
       
         for i in range(len(self.fAM.views)):
             area = calcArea(len(self.fAM.views[i].coords),self.s)
-            self.fAM.views[i].setArea(area) 
+            self.fAM.views[i].set_area(area) 
             self.totArea = self.totArea + area
     def calcAngles(self):
         x = 5

@@ -43,19 +43,18 @@ class FranklinAndRay:
 
     def calc_views(self):
         self.ordered_vs = order_vs(self.vs,self.graph.num_steps)
-        dfs1 = dfs(self.ordered_vs,self.ordered_vs[0])
-        v1 = View()
-        v1.add_coords(dfs1)
-        self.views.append(v1)
-        i = 0
-        coordsLeft = differenceofViews(dfs1,self.ordered_vs)
+        dfs_result = dfs(self.ordered_vs,self.ordered_vs[0])
+        first_view = View()
+        first_view.add_coords(dfs_result)
+        self.views.append(first_view)
+        coords_left = differenceofViews(dfs_result,self.ordered_vs)
 
-        while(0<len(coordsLeft)):
-            dfsi = dfs(coordsLeft,coordsLeft[0])
-            vi = View()
-            vi.add_coords(dfsi)
-            self.views.append(vi)
-            coordsLeft = differenceofViews(dfsi,coordsLeft)
+        while(0<len(coords_left)):
+            dfsi = dfs(coords_left,coords_left[0])
+            new_view = View()
+            new_view.add_coords(dfsi)
+            self.views.append(new_view)
+            coords_left = differenceofViews(dfsi,coords_left)
 
     def printViews(self):
         for i in range(len(self.views)):

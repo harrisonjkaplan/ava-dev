@@ -3,7 +3,7 @@ from coord import Coord
 from coord_field import CoordField
 from graph import Graph
 from haversine import haversine, Unit
-from helpers import get_fake_elevations, get_perimeter, contains_coord, coords_equal, contains_coord_index
+from helpers import get_fake_elevations, get_perimeter, contains_coord, coords_equal, contains_coord_index, dfs
 import random
 from franklin_and_ray import FranklinAndRay
 from view import View
@@ -89,9 +89,26 @@ class TestAVA(unittest.TestCase):
         self.assertFalse(contains_coord(Coord(0,-2,0),fam.vs))
 
         #testing calc_views
-        fam.calc_views()
+        #6 distinct views, 1 in the center, 5 around the perimiter
+        ele_vals = [0,5,5,0,5,5,5,
+                    5,0,0,0,0,0,5,
+                    5,0,1,1,1,0,5,
+                    0,0,1,0,1,0,0,
+                    5,0,1,1,1,0,5,
+                    5,0,0,0,0,0,5,
+                    5,5,0,0,5,5,5]
         
+        graph = Graph(4,ele_vals)
+        fam = FranklinAndRay(graph, 0)
+        self.assertEqual(len(graph.grid),7)
+        fam.runFranklinAndRay()
+        fam.calc_views()
 
+        self.assertEqual(len(fam.vs),26)
+        self.assertEqual(len(fam.views),6)
+        self.assertFalse(contains_coord(Coord(-2,0,0),fam.vs))
+
+        
     def test_view(self):
         c1 = Coord(1,2,3)
         c2 = Coord(4,5,6)
@@ -140,11 +157,16 @@ class TestAVA(unittest.TestCase):
         self.assertEqual(contains_coord_index(c1,coords_list),0)
         self.assertEqual(contains_coord_index(c4,coords_list),-1)
 
+        #test dfs
+        c1 = Coord(0,0,3)
+        c2 = Coord(0,1,6)
+        c3 = Coord(1,0,3)
+        c4 = Coord(1,1,9)
+        #Coord 5 is not in the view
+        c5 = Coord(1,3,9)
 
-
-
-
-
-
-
+        coords_list = [c1,c2,c3,c4,c5]
+        dfs_result = dfs(coords_list,c1)
+        self.assertTrue(len(dfs_result),len(coords_list)-1)
+        self.assertFalse(contains_coord(c5,dfs_result))
 

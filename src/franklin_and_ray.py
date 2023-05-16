@@ -56,14 +56,6 @@ class FranklinAndRay:
             self.views.append(new_view)
             coords_left = differenceofViews(dfsi,coords_left)
 
-    def printViews(self):
-        for i in range(len(self.views)):
-            #print("View: ",end="")
-            #print(i)
-            #self.views[i].getCoords()
-            x = 0
-
-
     def x_list(self):
         xS = []
         for i in range(len(self.vs)):

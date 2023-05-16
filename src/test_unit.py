@@ -108,7 +108,6 @@ class TestAVA(unittest.TestCase):
         self.assertEqual(len(fam.views),6)
         self.assertFalse(contains_coord(Coord(-2,0,0),fam.vs))
 
-        
     def test_view(self):
         c1 = Coord(1,2,3)
         c2 = Coord(4,5,6)

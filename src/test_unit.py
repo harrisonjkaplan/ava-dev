@@ -3,7 +3,7 @@ from coord import Coord
 from coord_field import CoordField
 from graph import Graph
 from haversine import haversine, Unit
-from helpers import get_fake_elevations, get_perimeter, contains_coord, coords_equal, contains_coord_index, dfs
+from helpers import get_fake_elevations, get_perimeter, contains_coord, coords_equal, contains_coord_index, dfs, difference_of_views
 import random
 from franklin_and_ray import FranklinAndRay
 from view import View
@@ -55,6 +55,7 @@ class TestAVA(unittest.TestCase):
         self.assertEqual(g.z_list(),random_elevations)
 
     def test_franklin_and_ray(self):
+        s = 1
         #Fake elevations where I know the vs
 
         #all are visible
@@ -65,7 +66,7 @@ class TestAVA(unittest.TestCase):
                     2,2,2,2,2]
         
         graph = Graph(3,ele_vals)
-        fam = FranklinAndRay(graph, 0)
+        fam = FranklinAndRay(graph, 0,s)
         self.assertEqual(len(graph.grid),5)
         fam.run_franklin_and_ray()
         vs_coords = fam.get_vs_coords()
@@ -79,7 +80,7 @@ class TestAVA(unittest.TestCase):
                     2,2,0,2,2]
         
         graph = Graph(3,ele_vals)
-        fam = FranklinAndRay(graph, 0)
+        fam = FranklinAndRay(graph, 0,s)
         self.assertEqual(len(graph.grid),5)
         fam.run_franklin_and_ray()
         vs_coords = fam.get_vs_coords()
@@ -102,15 +103,37 @@ class TestAVA(unittest.TestCase):
                     5,5,0,0,5,5,5]
         
         graph = Graph(4,ele_vals)
-        fam = FranklinAndRay(graph, 0)
+        fam = FranklinAndRay(graph, 0,s)
         self.assertEqual(len(graph.grid),7)
         fam.run_franklin_and_ray()
         vs_coords = fam.get_vs_coords()
         fam.calc_views()
+        fam.set_area_of_views()
 
         self.assertEqual(len(vs_coords),26)
         self.assertEqual(len(fam.views),6)
         self.assertFalse(contains_coord(Coord(-2,0,0),vs_coords))
+        
+        #testing set_area_views
+        expected_areas = [4,5,8,2,5,2]
+
+        self.assertEqual(fam.total_vs_area,26*s)
+        self.assertEqual(fam.views[0].area,expected_areas[0])
+        self.assertEqual(fam.views[1].area,expected_areas[1])
+        self.assertEqual(fam.views[2].area,expected_areas[2])
+        self.assertEqual(fam.views[3].area,expected_areas[3])
+        self.assertEqual(fam.views[4].area,expected_areas[4])
+        self.assertEqual(fam.views[5].area,expected_areas[5])
+
+        self.assertEqual(fam.get_area_of_views(),expected_areas)
+
+
+
+
+
+
+
+
 
     def test_view(self):
         c1 = Coord(1,2,3)
@@ -172,4 +195,14 @@ class TestAVA(unittest.TestCase):
         dfs_result = dfs(coords_list,c1)
         self.assertTrue(len(dfs_result),len(coords_list)-1)
         self.assertFalse(contains_coord(c5,dfs_result))
+
+        #Test difference of Views
+        view = [c1,c2]
+        vs = [c1,c2,c3]
+        diff = difference_of_views(view,vs)
+        self.assertEqual(len(diff),1)
+        self.assertEqual(diff[0],c3)
+
+
+        
 

@@ -1,18 +1,17 @@
 #in order for code to run, it needs to be run in the virtual environment 'venv'
-from olympus import Olympus
-from olympians import Olympians 
-from analytics import Analytics
+from ava import Ava
+
 #driver of code
 
 
-h = 0
+min_height = 0
+max_height = 6
 r = 3
 s = 1
-oly = Olympus(37,-82,h,r,s)
-areas = oly.multH(0,15)
-heights = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
-heights_short = [0,1,2]
+ava = Ava(37,-82,r,s,min_height,max_height)
+ava.calc_viewsheds()
 
+areas = [fam.total_vs_area for fam in ava.fams]
 
 
 ### SEE HERE FOR WHAT API WILL RETURN
@@ -21,13 +20,12 @@ heights_short = [0,1,2]
 #
 ###
 #print(oly.graph.gList)
-returnList = oly.getAPIReturnList()
+returnList = ava.getAPIReturnList()
 #for i in range(len(returnList)):
     #print(returnList[i].toString())
 
 
+height_range =list(range(min_height, max_height))
 
-oly.visualize(areas,heights)
-
-ana = Analytics(r,h,s,oly.fam)
-ana.calcAreas()
+print(f"areas: {areas}")
+ava.visualize(areas,height_range)

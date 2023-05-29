@@ -30,11 +30,6 @@ def reconcileCoords(gList,xList,yList,vs):
 
     return realCoords
 
-
-def calcArea(x,d):
-    return d*d*x
-
-
 def order_vs(vs,r):
     ordered_vs = []
   
@@ -201,36 +196,34 @@ def viewHasCoord(coords1,coords2):
         for j in range(len(coords1)):
             if(coords_equal(coords1[j],coords2[i]) == True):
                 return True
-def difference_of_views(v1,vs):
+            
+def difference_of_views(view,vs):
+    '''Returns the coords contained in vs that are not in view'''
     coords = []
     for i in range(len(vs)):
         check = False
-        for j in range(len(v1)):
+        for j in range(len(view)):
             
-            if(coords_equal(v1[j],vs[i]) == True):
+            if(coords_equal(view[j],vs[i]) == True):
                 check = True
         if(check== False):
             coords.append(vs[i])
 
     return coords
-def sameofViews(v1,vs):
+
+def intersection_of_views(view,vs):
+    '''Contains the coords that are in both view and vs'''
     coords = []
     for i in range(len(vs)):
         check = False
-        for j in range(len(v1)):
-            if(coords_equal(v1[j],vs[i]) == True):
+        for j in range(len(view)):
+            if(coords_equal(view[j],vs[i]) == True):
                 check = True
         if(check== True):
             coords.append(vs[i])
 
     return coords
 
-            
-
-def addView(v1,v2):
-    for i in range(len(v2.coords)):
-        v1.addCoord(v2.coords[i])
-    return False
 def coords_equal(c1,c2):
     if c1.get_x() == c2.get_x() and c1.get_y() == c2.get_y():
         return True
@@ -238,7 +231,6 @@ def coords_equal(c1,c2):
         return False
 
 def slope(c1,c2,h):
-    
     return (c2.get_z()-(c1.get_z()+h)) /math.sqrt(((c2.get_x()- c1.get_x()) ** 2 + (c2.get_y()- c1.get_y()) ** 2))
 
 def get_perimeter(graph):

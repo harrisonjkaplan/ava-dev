@@ -1,19 +1,21 @@
 import math 
-from helpers import get_perimeter, slope,coords_equal,containsCoord,bres,contains_coord, adjacentPointCheck,order_vs,dfs,difference_of_views, get_elevation
+from helpers import get_perimeter, slope,bres,contains_coord,order_vs,dfs,difference_of_views
 from bresenham import bresenham
 from coord import Coord
 from view import View
 from graph import Graph
 import numpy as np
 class FranklinAndRay:
-    def __init__(self,graph,h): 
+    def __init__(self,graph,h,s): 
         self.graph = graph #graph of easier coordinates from Graph.py
         self.h = h
+        self.s = s
         self.vs = []
         self.perimeter = []#perimeter
         self.views = []
         self.ordered_vs = []
         self.new_coords = []
+        self.total_vs_area = 0
 
 
 #implementation of franklinandray's algorithm for calculating view shed
@@ -33,15 +35,11 @@ class FranklinAndRay:
                 
                 if(mi>=u):
                     u = mi
-                    
+        
                     if(contains_coord(sight_line[j+1],self.vs) == False):
                         self.vs.append(sight_line[j+1])
                         grid_y = -sight_line[j+1].get_y()-1+self.graph.num_steps
                         grid_x = sight_line[j+1].get_x()-1+self.graph.num_steps
-
-                        print(f"sight line {sight_line[j+1].get_x()} , {sight_line[j+1].get_y()}, {sight_line[j+1].get_z()}")
-                        print(f"grid line {self.graph.grid[grid_y][grid_x].get_x()} , {self.graph.grid[grid_y][grid_x].get_y()}, {self.graph.grid[grid_y][grid_x].get_z()}")
-
                         self.graph.grid[grid_y][grid_x].view = 0
 
 
@@ -70,6 +68,19 @@ class FranklinAndRay:
             new_view.add_coords(dfsi)
             self.views.append(new_view)
             coords_left = difference_of_views(dfsi,coords_left)
+
+    def set_area_of_views(self):
+        for view in self.views:
+            view_area = len(view.coords)*self.s**2
+            print(f"view area {view_area}")
+            view.set_area(view_area) 
+            self.total_vs_area = self.total_vs_area + view_area
+
+    def get_area_of_views(self):
+        areas = []
+        for view in self.views:
+            areas.append(view.area)
+        return areas
 
     def x_list(self):
         xS = []

@@ -53,7 +53,7 @@ def generate_result():
         # oly.visualize(areas,heights)
 
         ana = Analytics(r,h,s,oly.fam)
-        ana.calcAreas()
+        ana.calc_view_areas()
         return jsonify(result = returnList), 200
     except CustomException as ce:
         return jsonify(message = ce.message), 400
@@ -82,7 +82,7 @@ def generate_result2():
         # oly.visualize(areas,heights)
 
         ana = Analytics(r,h,s,oly.fam)
-        ana.calcAreas()
+        ana.calc_view_areas()
         returnMessage = "this is a test of the new api"
         returnTestList = [returnList, returnMessage]
         return jsonify(result = returnTestList), 200

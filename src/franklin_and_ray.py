@@ -1,5 +1,5 @@
 import math 
-from helpers import get_perimeter, slope,coords_equal,containsCoord,bres,contains_coord, adjacentPointCheck,order_vs,dfs,differenceofViews, get_elevation
+from helpers import get_perimeter, slope,coords_equal,containsCoord,bres,contains_coord, adjacentPointCheck,order_vs,dfs,difference_of_views, get_elevation
 from bresenham import bresenham
 from coord import Coord
 from view import View
@@ -9,15 +9,15 @@ class FranklinAndRay:
     def __init__(self,graph,h): 
         self.graph = graph #graph of easier coordinates from Graph.py
         self.h = h
-        self.lines = []
         self.vs = []
         self.perimeter = []#perimeter
         self.views = []
         self.ordered_vs = []
+        self.new_coords = []
 
 
 #implementation of franklinandray's algorithm for calculating view shed
-    def runFranklinAndRay(self):
+    def run_franklin_and_ray(self):
         observer_x_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].get_x()
         observer_y_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].get_y()
         observer_ele_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].get_z()
@@ -26,35 +26,50 @@ class FranklinAndRay:
 
         for i in range(len(self.perimeter)):
             u=-1000000
-            line = bres(self.graph.grid,obs,self.perimeter[i],self.graph.num_steps)
+            sight_line = bres(self.graph.grid,obs,self.perimeter[i],self.graph.num_steps)
               
-            l1 = []
-            for j in range(len(line)-1):
-                mi = slope(obs,line[j+1],self.h)
+            for j in range(len(sight_line)-1):
+                mi = slope(obs,sight_line[j+1],self.h)
                 
                 if(mi>=u):
                     u = mi
                     
-                    if(contains_coord(line[j+1],self.vs) == False):
-                        self.vs.append(line[j+1])
-                        l1.append(line[j+1])
-            self.lines.append(l1)
+                    if(contains_coord(sight_line[j+1],self.vs) == False):
+                        self.vs.append(sight_line[j+1])
+                        grid_y = -sight_line[j+1].get_y()-1+self.graph.num_steps
+                        grid_x = sight_line[j+1].get_x()-1+self.graph.num_steps
+
+                        print(f"sight line {sight_line[j+1].get_x()} , {sight_line[j+1].get_y()}, {sight_line[j+1].get_z()}")
+                        print(f"grid line {self.graph.grid[grid_y][grid_x].get_x()} , {self.graph.grid[grid_y][grid_x].get_y()}, {self.graph.grid[grid_y][grid_x].get_z()}")
+
+                        self.graph.grid[grid_y][grid_x].view = 0
+
+
+    def get_vs_coords(self):
+        vs_coords = []
+        for i in range(len(self.graph.grid)):
+            for j in range(len(self.graph.grid[i])):
+                if self.graph.grid[i][j].view == 0:
+                    vs_coords.append(self.graph.grid[i][j])
+
+        return vs_coords
             
 
     def calc_views(self):
-        self.ordered_vs = order_vs(self.vs,self.graph.num_steps)
+        vs_coords = self.get_vs_coords()
+        self.ordered_vs = order_vs(vs_coords,self.graph.num_steps)
         dfs_result = dfs(self.ordered_vs,self.ordered_vs[0])
         first_view = View()
         first_view.add_coords(dfs_result)
         self.views.append(first_view)
-        coords_left = differenceofViews(dfs_result,self.ordered_vs)
+        coords_left = difference_of_views(dfs_result,self.ordered_vs)
 
         while(0<len(coords_left)):
             dfsi = dfs(coords_left,coords_left[0])
             new_view = View()
             new_view.add_coords(dfsi)
             self.views.append(new_view)
-            coords_left = differenceofViews(dfsi,coords_left)
+            coords_left = difference_of_views(dfsi,coords_left)
 
     def x_list(self):
         xS = []

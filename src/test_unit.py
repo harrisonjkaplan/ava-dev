@@ -67,8 +67,9 @@ class TestAVA(unittest.TestCase):
         graph = Graph(3,ele_vals)
         fam = FranklinAndRay(graph, 0)
         self.assertEqual(len(graph.grid),5)
-        fam.runFranklinAndRay()
-        self.assertEqual(len(fam.vs),24)
+        fam.run_franklin_and_ray()
+        vs_coords = fam.get_vs_coords()
+        self.assertEqual(len(vs_coords),24)
 
         #some missing points
         ele_vals = [0,2,2,2,2,
@@ -80,13 +81,15 @@ class TestAVA(unittest.TestCase):
         graph = Graph(3,ele_vals)
         fam = FranklinAndRay(graph, 0)
         self.assertEqual(len(graph.grid),5)
-        fam.runFranklinAndRay()
-        self.assertEqual(len(fam.vs),21)
+        fam.run_franklin_and_ray()
+        vs_coords = fam.get_vs_coords()
+        self.assertEqual(len(vs_coords),21)
+        self.assertEqual(len(fam.vs),len(vs_coords))
 
         #making sure the 3 missing coords are not in the vs
-        self.assertFalse(contains_coord(Coord(-2,2,0),fam.vs))
-        self.assertFalse(contains_coord(Coord(2,1,0),fam.vs))
-        self.assertFalse(contains_coord(Coord(0,-2,0),fam.vs))
+        self.assertFalse(contains_coord(Coord(-2,2,0),vs_coords))
+        self.assertFalse(contains_coord(Coord(2,1,0),vs_coords))
+        self.assertFalse(contains_coord(Coord(0,-2,0),vs_coords))
 
         #testing calc_views
         #6 distinct views, 1 in the center, 5 around the perimiter
@@ -101,12 +104,13 @@ class TestAVA(unittest.TestCase):
         graph = Graph(4,ele_vals)
         fam = FranklinAndRay(graph, 0)
         self.assertEqual(len(graph.grid),7)
-        fam.runFranklinAndRay()
+        fam.run_franklin_and_ray()
+        vs_coords = fam.get_vs_coords()
         fam.calc_views()
 
-        self.assertEqual(len(fam.vs),26)
+        self.assertEqual(len(vs_coords),26)
         self.assertEqual(len(fam.views),6)
-        self.assertFalse(contains_coord(Coord(-2,0,0),fam.vs))
+        self.assertFalse(contains_coord(Coord(-2,0,0),vs_coords))
 
     def test_view(self):
         c1 = Coord(1,2,3)

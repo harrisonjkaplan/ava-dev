@@ -23,7 +23,7 @@ class Olympus:
        
         self.graph = Graph(int(self.r/self.s),self.elevations)
         self.fam = FranklinAndRay(self.graph,self.h)
-        self.fam.runFranklinAndRay()
+        self.fam.run_franklin_and_ray()
         self.fam.calc_views()
 
     def getAPIReturnList(self):
@@ -48,7 +48,7 @@ class Olympus:
         for i in range(x):
             newH = low + i
             fAMx = FranklinAndRay(self.graph,newH)
-            fAMx.runFranklinAndRay()
+            fAMx.run_franklin_and_ray()
             fAMx.calc_views()
             anax = Analytics(self.r,newH,self.s,fAMx)
             anax.calcAreas()

@@ -11,6 +11,8 @@ s = 1
 oly = Olympus(37,-82,h,r,s)
 areas = oly.multH(0,15)
 heights = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+heights_short = [0,1,2]
+
 
 
 ### SEE HERE FOR WHAT API WILL RETURN
@@ -28,6 +30,4 @@ returnList = oly.getAPIReturnList()
 oly.visualize(areas,heights)
 
 ana = Analytics(r,h,s,oly.fam)
-ana.calcPerim()
-ana.calcAngles()
 ana.calcAreas()

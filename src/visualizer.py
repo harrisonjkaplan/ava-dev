@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from mpl_toolkits import mplot3d
 import matplotlib.colors as colors
+from franklin_and_ray import FranklinAndRay
 #Simple visualizer to show the coordinates and their respective elevations 
 class Visualizer:
 
@@ -42,6 +43,7 @@ class Visualizer:
 
 
         ax.plot_trisurf(X,Y,Z,color="blue")
+        
         ax.scatter3D(X2, Y2, Z2, color="red")
 
 

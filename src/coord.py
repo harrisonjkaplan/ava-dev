@@ -4,6 +4,7 @@ class Coord:
         self.x = x 
         self.y = y 
         self.z = z 
+        self.view = -1
 
     def get_x(self):
         return self.x

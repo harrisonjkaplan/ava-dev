@@ -201,7 +201,7 @@ def viewHasCoord(coords1,coords2):
         for j in range(len(coords1)):
             if(coords_equal(coords1[j],coords2[i]) == True):
                 return True
-def differenceofViews(v1,vs):
+def difference_of_views(v1,vs):
     coords = []
     for i in range(len(vs)):
         check = False

@@ -1,6 +1,6 @@
 import requests, json
 from custom_exception import CustomException
-from helpers import coordsSmasher,coordsString,countString, getString
+from helpers import coords_smasher,coords_string,count_string, getString
 
 #takes calculated coordinates are runs elevation api 
 #number of coordinates per call is limited so have to run it in batches
@@ -12,8 +12,8 @@ class ElevationGetter:
 
     def getElevation(self):
         elevations = [] 
-        s2Array = coordsString(self.yS, self.xS)
-        x = int(countString(s2Array))
+        s2Array = coords_string(self.yS, self.xS)
+        x = int(count_string(s2Array))
 
         for i in range(x):
             s = getString(s2Array[i])

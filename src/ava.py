@@ -3,7 +3,7 @@ from coord_field import CoordField
 from graph import Graph 
 from franklin_and_ray import FranklinAndRay
 from visualizer import Visualizer
-from helpers import reconcileCoords, get_fake_elevations, difference_of_views
+from helpers import reconcile_coords, get_fake_elevations, difference_of_views
 #class to run the view shed for a single location
 class Ava:
     def __init__(self,x,y,r,s,min_height=0,max_height=0):

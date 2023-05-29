@@ -18,9 +18,7 @@ def get_fake_elevations(size):
             fake_ele_vals.append(fake_elevations[i][j])
     return fake_ele_vals
 
-#11/3
-def reconcileCoords(gList,xList,yList,vs):
-    #print(len(vs))
+def reconcile_coords(gList,xList,yList,vs):
     realCoords = []
 
     for i in range(len(vs)):
@@ -73,12 +71,12 @@ def dfs(vs,c1):
     return coords
 
 
-def getString(coords):
+def get_string(coords):
     s = ""
     for i in range(len(coords)):
         s = s + coords[i]
     return s
-def countString(sArray):
+def count_string(sArray):
     count = 0 
     
     for i in range (len(sArray)):
@@ -86,7 +84,7 @@ def countString(sArray):
         
             count = count + 1
     return count 
-def coordsString(lats,longs):
+def coords_string(lats,longs):
     sArray = [[],[],[],[],[],[]]
     size = len(lats)
     count = 0
@@ -111,14 +109,13 @@ def coordsString(lats,longs):
 
     return sArray
 
-def coordsSmasher(lats, longs,numCoords):
+def coords_smasher(lats, longs,numCoords):
     sArray = []
     numCalls = int(numCoords/300) +1
     for i in range(1):
             sArray.append("")
             #print("done")
 
-    
     x = len(sArray)
 
     count = 0
@@ -128,13 +125,7 @@ def coordsSmasher(lats, longs,numCoords):
                     count = count +1
                     if (121!=j+1):
                      sArray[i] = sArray[i] + '|'
-
-        
-
-
-    
     return sArray
-
 
 def bres(g,c1,c2,num_steps):
     x1 = c1.get_x()
@@ -154,7 +145,7 @@ def get_elevation(g,coord,r):
         for j in range(r*2-1):
             if(g[i][j].get_x() == coord[0]) and (g[i][j].get_y() == coord[1]):
                 return g[i][j].get_z()
-def containsCoord(g,c2,r):
+def contains_coord(g,c2,r):
     
     for i in range (r*2-1):
         for j in range(r*2-1):
@@ -163,7 +154,7 @@ def containsCoord(g,c2,r):
             if(coords_equal(c1,c2)):
                 return True
     return False
-def adjacentPointCheck(c1,views):
+def adjacent_point_check(c1,views):
     p1 = Coord(c1.get_x()+1,c1.get_y(),c1.get_z())
     p2 = Coord(c1.get_x(),c1.get_y()+1,c1.get_z())
     p3 = Coord(c1.get_x()-1,c1.get_y(),c1.get_z())
@@ -191,7 +182,7 @@ def contains_coord_index(coord,coords_list):
             return i
     return -1
 
-def viewHasCoord(coords1,coords2):
+def view_has_coord(coords1,coords2):
     for i in range(len(coords2)):
         for j in range(len(coords1)):
             if(coords_equal(coords1[j],coords2[i]) == True):

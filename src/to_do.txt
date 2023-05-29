@@ -1,6 +1,9 @@
 Move over to using numpy instead of custom classes
 
-handle case where user gives in valid r and s values where r/s is not a positive whole number
+api input validation
+    handle case where user gives in valid r and s values where r/s is not a positive whole number
+    inbounds long and lat 
+    
 
 Add flagging options for analytics in api
 

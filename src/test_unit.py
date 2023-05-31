@@ -1,12 +1,13 @@
 import unittest
-from coord import Coord
+from unittest.mock import patch
+from ava import Ava
+from coordinates import Coord, CoordField, Graph, View
 from coord_field import CoordField
-from graph import Graph
 from haversine import haversine, Unit
 from helpers import get_fake_elevations, get_perimeter, contains_coord, coords_equal, contains_coord_index, dfs, difference_of_views
 import random
 from franklin_and_ray import FranklinAndRay
-from view import View
+
 
 
 class TestAVA(unittest.TestCase):
@@ -127,14 +128,6 @@ class TestAVA(unittest.TestCase):
 
         self.assertEqual(fam.get_area_of_views(),expected_areas)
 
-
-
-
-
-
-
-
-
     def test_view(self):
         c1 = Coord(1,2,3)
         c2 = Coord(4,5,6)
@@ -144,6 +137,30 @@ class TestAVA(unittest.TestCase):
         self.assertEqual(len(v.coords),2)
         v.set_area(25.5)
         self.assertEqual(v.area,25.5)
+
+    def test_ava(self):
+        ele_vals = [0,1,1,0,1,1,1,
+                    1,0,0,0,0,0,1,
+                    1,0,1,1,1,0,1,
+                    0,0,1,0,1,0,0,
+                    1,0,1,1,1,0,1,
+                    1,0,0,0,0,0,1,
+                    1,1,0,0,1,1,1]
+        
+        graph = Graph(4,ele_vals)
+        min_height = 0
+        max_height = 1
+        r = 4
+        s = 1
+        ava = Ava(37,-82,r,s,min_height,max_height)
+        with patch.object(ava, 'graph', new=graph):
+            ava.calc_viewsheds()
+            
+            self.assertEqual(len(ava.fams),2)
+            self.assertEqual(len(ava.fams[0].new_coords),8)
+            self.assertEqual(len(ava.fams[1].new_coords),18)
+            self.assertEqual(ava.fams[0].total_vs_area,8)
+            self.assertEqual(ava.fams[1].total_vs_area,26)
 
     def test_helpers(self):
         #test get_fake_elevations

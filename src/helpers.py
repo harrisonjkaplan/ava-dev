@@ -1,8 +1,6 @@
 import math 
-from coord import Coord
-from graph import Graph
+from coordinates import Coord, View
 from bresenham import bresenham
-from view import View
 from hkb_diamondsquare import DiamondSquare as DS
 
 #file containing all helper methods used in other classes

@@ -1,9 +1,7 @@
 import math 
 from helpers import get_perimeter, slope,bres,contains_coord,order_vs,dfs,difference_of_views
 from bresenham import bresenham
-from coord import Coord
-from view import View
-from graph import Graph
+from coordinates import Coord, Graph, View
 import numpy as np
 class FranklinAndRay:
     def __init__(self,graph,h,s): 
@@ -72,7 +70,6 @@ class FranklinAndRay:
     def set_area_of_views(self):
         for view in self.views:
             view_area = len(view.coords)*self.s**2
-            print(f"view area {view_area}")
             view.set_area(view_area) 
             self.total_vs_area = self.total_vs_area + view_area
 

@@ -1,6 +1,6 @@
 import requests, json
 from custom_exception import CustomException
-from helpers import coords_smasher,coords_string,count_string, getString
+from helpers import coords_smasher,coords_string,count_string
 
 #takes calculated coordinates are runs elevation api 
 #number of coordinates per call is limited so have to run it in batches

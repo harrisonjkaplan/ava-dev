@@ -25,7 +25,8 @@ returnList = ava.getAPIReturnList()
     #print(returnList[i].toString())
 
 
-height_range =list(range(min_height, max_height))
+height_range =list(range(min_height, max_height+1))
+print(height_range)
 
 print(f"areas: {areas}")
 ava.visualize(areas,height_range)

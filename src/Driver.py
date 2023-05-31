@@ -3,9 +3,7 @@ import os
 import traceback
 
 from custom_exception import CustomException
-from olympus import Olympus
-from olympians import Olympians 
-from analytics import Analytics
+
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)

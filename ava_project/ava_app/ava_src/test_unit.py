@@ -1,12 +1,11 @@
 import unittest
 from unittest.mock import patch
-from ava import Ava
-from coordinates import Coord, CoordField, Graph, View
-from coord_field import CoordField
+from .ava import Ava
+from .coordinates import Coord, CoordField, Graph, View
 from haversine import haversine, Unit
-from helpers import get_fake_elevations, get_perimeter, contains_coord, coords_equal, contains_coord_index, dfs, difference_of_views
+from .helpers import get_fake_elevations, get_perimeter, contains_coord, coords_equal, contains_coord_index, dfs, difference_of_views
 import random
-from franklin_and_ray import FranklinAndRay
+from .franklin_and_ray import FranklinAndRay
 
 
 

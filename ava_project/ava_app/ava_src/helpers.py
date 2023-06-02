@@ -1,5 +1,5 @@
 import math 
-from coordinates import Coord, View
+from .coordinates import Coord, View
 from bresenham import bresenham
 from hkb_diamondsquare import DiamondSquare as DS
 

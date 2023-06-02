@@ -1,8 +1,8 @@
-from elevation_getter import ElevationGetter
-from coordinates import CoordField, Graph, View
-from franklin_and_ray import FranklinAndRay
-from visualizer import Visualizer
-from helpers import reconcile_coords, get_fake_elevations, difference_of_views
+# from elevation_getter import ElevationGetter
+from .coordinates import CoordField, Graph, View
+from .franklin_and_ray import FranklinAndRay
+from .visualizer import Visualizer
+from .helpers import reconcile_coords, get_fake_elevations, difference_of_views
 #class to run the view shed for a single location
 class Ava:
     def __init__(self,x,y,r,s,min_height=0,max_height=0):
@@ -55,3 +55,7 @@ class Ava:
 
         v = Visualizer(xS,yS,zS,xS2,yS2,zS2,areas,heights)
         v.visualize()
+
+    def get_response(self):
+        response = {}
+

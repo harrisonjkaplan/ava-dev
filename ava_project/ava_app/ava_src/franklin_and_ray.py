@@ -1,7 +1,7 @@
 import math 
-from helpers import get_perimeter, slope,bres,contains_coord,order_vs,dfs,difference_of_views
+from .helpers import get_perimeter, slope,bres,contains_coord,order_vs,dfs,difference_of_views
 from bresenham import bresenham
-from coordinates import Coord, Graph, View
+from .coordinates import Coord, Graph, View
 import numpy as np
 class FranklinAndRay:
     def __init__(self,graph,h,s): 

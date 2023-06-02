@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from mpl_toolkits import mplot3d
 import matplotlib.colors as colors
-from franklin_and_ray import FranklinAndRay
+from .franklin_and_ray import FranklinAndRay
 #Simple visualizer to show the coordinates and their respective elevations 
 class Visualizer:
 

@@ -20,5 +20,5 @@ from ava_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/get_ava/<int:number>/', views.get_ava),
+    path('api/get_ava/', views.get_ava),
 ]

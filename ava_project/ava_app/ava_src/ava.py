@@ -58,4 +58,20 @@ class Ava:
 
     def get_response(self):
         response = {}
+        observer = {
+            "longitude": self.x,
+            "latitude": self.y,
+            "minumum_height": self.min_height,
+            "maximum_height": self.max_height
+        }
+        viewshed_config = {
+            "radius": self.r,
+            "resolution": self.s
+        }
+        response['observer_details'] = observer
+        response['viewshed_configuration'] = viewshed_config
+
+        response['incremental_height_viewsheds'] = [fam.to_dict() for fam in self.fams]
+
+        return response
 

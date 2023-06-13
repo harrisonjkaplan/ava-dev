@@ -114,7 +114,7 @@ class TestAVA(unittest.TestCase):
         self.assertEqual(len(fam.views),6)
         self.assertFalse(contains_coord(Coord(-2,0,0),vs_coords))
         
-        #testing set_area_views
+        #testing set_area_views()
         expected_areas = [4,5,8,2,5,2]
 
         self.assertEqual(fam.total_vs_area,26*s)
@@ -126,6 +126,11 @@ class TestAVA(unittest.TestCase):
         self.assertEqual(fam.views[5].area,expected_areas[5])
 
         self.assertEqual(fam.get_area_of_views(),expected_areas)
+
+        #test to_dict()
+        #TODO
+        
+
 
     def test_view(self):
         c1 = Coord(1,2,3)

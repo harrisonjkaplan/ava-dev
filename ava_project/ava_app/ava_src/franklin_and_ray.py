@@ -74,10 +74,25 @@ class FranklinAndRay:
             self.total_vs_area = self.total_vs_area + view_area
 
     def get_area_of_views(self):
-        areas = []
-        for view in self.views:
-            areas.append(view.area)
+        areas = [view.area for view in self.views]
         return areas
+    
+    def to_dict(self):
+        dict_obj = {}
+        visible_points = [coord.to_string() for coord in self.vs]
+        dict_obj['visible_points'] = visible_points
+        dict_obj['total_visible_area'] = self.total_vs_area
+        dict_obj['newly_visible_points'] = [coord.to_string() for coord in self.new_coords]
+        views = []
+        for view in self.views:
+            view_details = {}
+            view_details['visible_points'] = [coord.to_string() for coord in view.coords]
+            view_details['area'] = view.area
+            views.append(view_details)
+        dict_obj['view'] = views
+
+        return dict_obj
+
 
     def x_list(self):
         xS = []
@@ -89,7 +104,7 @@ class FranklinAndRay:
         yS = []
         for i in range(len(self.vs)):
             yS.append(self.vs[i].get_y())
-        return yS
+        return yS 
     
     def z_list(self):
         zS = []

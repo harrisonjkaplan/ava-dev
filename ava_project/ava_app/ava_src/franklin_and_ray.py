@@ -36,6 +36,7 @@ class FranklinAndRay:
         
                     if(contains_coord(sight_line[j+1],self.vs) == False):
                         self.vs.append(sight_line[j+1])
+                        print(self.vs[-1].coordinates_to_string())
                         grid_y = -sight_line[j+1].y-1+self.graph.num_steps
                         grid_x = sight_line[j+1].x-1+self.graph.num_steps
                         self.graph.grid[grid_y][grid_x].view = 0
@@ -79,14 +80,16 @@ class FranklinAndRay:
     
     def to_dict(self):
         dict_obj = {}
-        visible_points = [coord.to_string() for coord in self.vs]
+        print(self.vs[0].coordinates_to_string())
+        visible_points = [coord.coordinates_to_string() for coord in self.vs]
+
         dict_obj['visible_points'] = visible_points
         dict_obj['total_visible_area'] = self.total_vs_area
-        dict_obj['newly_visible_points'] = [coord.to_string() for coord in self.new_coords]
+        dict_obj['newly_visible_points'] = [coord.coordinates_to_string() for coord in self.new_coords]
         views = []
         for view in self.views:
             view_details = {}
-            view_details['visible_points'] = [coord.to_string() for coord in view.coords]
+            view_details['visible_points'] = [coord.coordinates_to_string() for coord in view.coords]
             view_details['area'] = view.area
             views.append(view_details)
         dict_obj['view'] = views

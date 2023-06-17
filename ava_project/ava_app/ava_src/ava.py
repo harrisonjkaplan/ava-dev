@@ -18,7 +18,7 @@ class Ava:
         # self.ele = ElevationGetter(self.cf.longitude_list,self.cf.latitude_list)
         # self.elevations = self.ele.getElevation()
         self.elevations = get_fake_elevations(int((r/s)*2-1))
-        self.graph = Graph(int(self.r/self.s),self.elevations)
+        self.graph = Graph(int(self.r/self.s),self.elevations,self.cf.longitude_list,self.cf.latitude_list)
         self.fams = []
 
     def getAPIReturnList(self):

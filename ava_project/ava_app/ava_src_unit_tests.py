@@ -17,6 +17,11 @@ class TestAVA(unittest.TestCase):
         self.assertEqual(c.z,3)
         self.assertEqual(c.to_string(),"(1, 2, 3)")
 
+        c = Coord(1,2,3,4.0,5.0)
+        self.assertEqual(c.longitude,4.0)
+        self.assertEqual(c.latitude,5.0)
+        self.assertEqual(c.coordinates_to_string(),"(4.0, 5.0, 3)")
+
     def test_CoordField(self):
         step_size = .1
         cf = CoordField(75,75,1,step_size)
@@ -40,13 +45,15 @@ class TestAVA(unittest.TestCase):
     def test_graph(self):
         num_steps = 5
         random_elevations = [random.randint(0, 10) for _ in range((num_steps*2-1)**2)]
-        g = Graph(num_steps,random_elevations)
+        random_longitudes = [random.randint(0, 10) for _ in range((num_steps*2-1)**2)]
+        random_latitudes = [random.randint(0, 10) for _ in range((num_steps*2-1)**2)]
+        g = Graph(num_steps,random_elevations,random_longitudes,random_latitudes)
 
         self.assertEqual(len(g.grid),num_steps*2-1)
         self.assertEqual(len(g.grid[0]),num_steps*2-1)
 
-        self.assertEqual(g.grid[0][0].get_z(),random_elevations[0])
-        self.assertEqual(g.grid[-1][-1].get_z(),random_elevations[-1])
+        self.assertEqual(g.grid[0][0].z,random_elevations[0])
+        self.assertEqual(g.grid[-1][-1].z,random_elevations[-1])
 
         fake_x_list = [-4, -3, -2, -1, 0, 1, 2, 3, 4, -4, -3, -2, -1, 0, 1, 2, 3, 4, -4, -3, -2, -1, 0, 1, 2, 3, 4, -4, -3, -2, -1, 0, 1, 2, 3, 4, -4, -3, -2, -1, 0, 1, 2, 3, 4, -4, -3, -2, -1, 0, 1, 2, 3, 4, -4, -3, -2, -1, 0, 1, 2, 3, 4, -4, -3, -2, -1, 0, 1, 2, 3, 4, -4, -3, -2, -1, 0, 1, 2, 3, 4]
         fake_y_list = [4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -2, -2, -2, -2, -3, -3, -3, -3, -3, -3, -3, -3, -3, -4, -4, -4, -4, -4, -4, -4, -4, -4]
@@ -64,8 +71,9 @@ class TestAVA(unittest.TestCase):
                     2,1,0,1,2,
                     2,1,1,1,2,
                     2,2,2,2,2]
-        
-        graph = Graph(3,ele_vals)
+        random_longitudes = [random.randint(0, 10) for _ in range((3*2-1)**2)]
+        random_latitudes = [random.randint(0, 10) for _ in range((3*2-1)**2)]
+        graph = Graph(3,ele_vals,random_longitudes,random_latitudes)
         fam = FranklinAndRay(graph, 0,s)
         self.assertEqual(len(graph.grid),5)
         fam.run_franklin_and_ray()
@@ -79,7 +87,7 @@ class TestAVA(unittest.TestCase):
                     2,1,1,1,2,
                     2,2,0,2,2]
         
-        graph = Graph(3,ele_vals)
+        graph = Graph(3,ele_vals,random_longitudes,random_latitudes)
         fam = FranklinAndRay(graph, 0,s)
         self.assertEqual(len(graph.grid),5)
         fam.run_franklin_and_ray()
@@ -101,8 +109,9 @@ class TestAVA(unittest.TestCase):
                     5,0,1,1,1,0,5,
                     5,0,0,0,0,0,5,
                     5,5,0,0,5,5,5]
-        
-        graph = Graph(4,ele_vals)
+        random_longitudes = [random.randint(0, 10) for _ in range((4*2-1)**2)]
+        random_latitudes = [random.randint(0, 10) for _ in range((4*2-1)**2)]
+        graph = Graph(4,ele_vals,random_longitudes,random_latitudes)
         fam = FranklinAndRay(graph, 0,s)
         self.assertEqual(len(graph.grid),7)
         fam.run_franklin_and_ray()
@@ -150,8 +159,9 @@ class TestAVA(unittest.TestCase):
                     1,0,1,1,1,0,1,
                     1,0,0,0,0,0,1,
                     1,1,0,0,1,1,1]
-        
-        graph = Graph(4,ele_vals)
+        random_longitudes = [random.randint(0, 10) for _ in range((4*2-1)**2)]
+        random_latitudes = [random.randint(0, 10) for _ in range((4*2-1)**2)]
+        graph = Graph(4,ele_vals,random_longitudes,random_latitudes)
         min_height = 0
         max_height = 1
         r = 4
@@ -177,8 +187,9 @@ class TestAVA(unittest.TestCase):
                     2,1,0,1,2,
                     2,1,1,1,2,
                     2,2,2,2,2]
-        
-        graph = Graph(3,ele_vals)
+        random_longitudes = [random.randint(0, 10) for _ in range((3*2-1)**2)]
+        random_latitudes = [random.randint(0, 10) for _ in range((3*2-1)**2)]
+        graph = Graph(3,ele_vals,random_longitudes,random_latitudes)
         perimeter = get_perimeter(graph)
         self.assertEqual((len(perimeter)),16)
         self.assertEqual(perimeter[0].x,-2)

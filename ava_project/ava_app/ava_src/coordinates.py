@@ -2,10 +2,12 @@ from haversine import inverse_haversine, Direction
 
 class Coord:
 #simple coord class to hold 3 dimensions
-    def __init__(self,x,y,z):
+    def __init__(self,x,y,z,longitude=None,latitude=None):
         self.x = x 
         self.y = y 
         self.z = z 
+        self.longitude = longitude
+        self.latitude = latitude
         self.view = -1
 
     def print_2d(self):
@@ -13,6 +15,10 @@ class Coord:
 
     def to_string(self):
         return('(' + str(self.x) + ', ' + str(self.y)  + ', ' + str(self.z)+ ')')
+    
+    def coordinates_to_string(self):
+        return('(' + str(self.longitude) + ', ' + str(self.latitude)  + ', ' + str(self.z)+ ')')
+
 
 class CoordField:##coord field takes in the startign coordinates and generates the grid of coordinates to 
     #be tested for elevation, with the starting x and y centered, it takes into account the current latitude 
@@ -37,9 +43,11 @@ class CoordField:##coord field takes in the startign coordinates and generates t
     
 class Graph: 
 #takes in elevation data and returns a graph of points on easier x and y plots top right is -r, r elevation[0]
-    def __init__(self,num_steps,elevations):
+    def __init__(self,num_steps,elevations,longitude_list,latitude_list):
         self.num_steps = num_steps
         self.elevations = elevations
+        self.longitude_list = longitude_list
+        self.latitude_list = latitude_list
         self.grid = []
         self.grid_list = []
        
@@ -50,7 +58,7 @@ class Graph:
             row = []
             for j in range(int(self.num_steps*2)-1):
                 x_val = j-self.num_steps+1
-                new_coord = Coord(x_val,y_val,elevations[coord_count])
+                new_coord = Coord(x_val,y_val,elevations[coord_count],longitude_list[coord_count],latitude_list[coord_count])
                 coord_count = coord_count + 1
                 self.grid_list.append(new_coord)
                 row.append(new_coord)

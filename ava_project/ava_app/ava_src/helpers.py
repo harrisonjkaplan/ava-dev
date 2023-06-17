@@ -21,7 +21,7 @@ def reconcile_coords(gList,xList,yList,vs):
 
     for i in range(len(vs)):
         x = contains_coord_index(vs[i],gList)
-        c = Coord(xList[x],yList[x],gList[x].get_z())
+        c = Coord(xList[x],yList[x],gList[x].z)
         realCoords.append(c.to_string())
 
     return realCoords
@@ -49,10 +49,10 @@ def dfs(vs,c1):
     x = 1
     i = 0
     while(i<x):
-        p1 = Coord(coords[i].get_x()+1,coords[i].get_y(),coords[i].get_z())
-        p2 = Coord(coords[i].get_x(),coords[i].get_y()+1,coords[i].get_z())
-        p3 = Coord(coords[i].get_x()-1,coords[i].get_y(),coords[i].get_z())
-        p4 = Coord(coords[i].get_x(),coords[i].get_y()-1,coords[i].get_z())
+        p1 = Coord(coords[i].x+1,coords[i].y,coords[i].z)
+        p2 = Coord(coords[i].x,coords[i].y+1,coords[i].z)
+        p3 = Coord(coords[i].x-1,coords[i].y,coords[i].z)
+        p4 = Coord(coords[i].x,coords[i].y-1,coords[i].z)
         if(contains_coord(p1,vs) == True and contains_coord(p1,coords) == False):
             x = x + 1
             coords.append(p1)
@@ -126,10 +126,10 @@ def coords_smasher(lats, longs,numCoords):
     return sArray
 
 def bres(g,c1,c2,num_steps):
-    x1 = c1.get_x()
-    x2 = c2.get_x()
-    y1 = c1.get_y()
-    y2 = c2.get_y()
+    x1 = c1.x
+    x2 = c2.x
+    y1 = c1.y
+    y2 = c2.y
     coords_list = list(bresenham(x1,y1,x2,y2))
     coords = []
   
@@ -141,8 +141,8 @@ def bres(g,c1,c2,num_steps):
 def get_elevation(g,coord,r):
     for i in range(r*2-1):
         for j in range(r*2-1):
-            if(g[i][j].get_x() == coord[0]) and (g[i][j].get_y() == coord[1]):
-                return g[i][j].get_z()
+            if(g[i][j].x == coord[0]) and (g[i][j].y == coord[1]):
+                return g[i][j].z
 def contains_coord(g,c2,r):
     
     for i in range (r*2-1):
@@ -153,10 +153,10 @@ def contains_coord(g,c2,r):
                 return True
     return False
 def adjacent_point_check(c1,views):
-    p1 = Coord(c1.get_x()+1,c1.get_y(),c1.get_z())
-    p2 = Coord(c1.get_x(),c1.get_y()+1,c1.get_z())
-    p3 = Coord(c1.get_x()-1,c1.get_y(),c1.get_z())
-    p4 = Coord(c1.get_x(),c1.get_y()-1,c1.get_z())
+    p1 = Coord(c1.x+1,c1.y,c1.z)
+    p2 = Coord(c1.x,c1.y+1,c1.z)
+    p3 = Coord(c1.x-1,c1.y,c1.z)
+    p4 = Coord(c1.x,c1.y-1,c1.z)
     if(contains_coord(p1,views) == True):
         return True
     if(contains_coord(p2,views) == True):
@@ -214,13 +214,13 @@ def intersection_of_views(view,vs):
     return coords
 
 def coords_equal(c1,c2):
-    if c1.get_x() == c2.get_x() and c1.get_y() == c2.get_y():
+    if c1.x == c2.x and c1.y == c2.y:
         return True
     else:
         return False
 
 def slope(c1,c2,h):
-    return (c2.get_z()-(c1.get_z()+h)) /math.sqrt(((c2.get_x()- c1.get_x()) ** 2 + (c2.get_y()- c1.get_y()) ** 2))
+    return (c2.z-(c1.z+h)) /math.sqrt(((c2.x- c1.x) ** 2 + (c2.y- c1.y) ** 2))
 
 def get_perimeter(graph):
     perimeter_coords = []

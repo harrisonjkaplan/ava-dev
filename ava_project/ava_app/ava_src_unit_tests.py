@@ -12,9 +12,9 @@ from ava_src.franklin_and_ray import FranklinAndRay
 class TestAVA(unittest.TestCase):
     def test_coord(self):
         c = Coord(1,2,3)
-        self.assertEqual(c.get_x(),1)
-        self.assertEqual(c.get_y(),2)
-        self.assertEqual(c.get_z(),3)
+        self.assertEqual(c.x,1)
+        self.assertEqual(c.y,2)
+        self.assertEqual(c.z,3)
         self.assertEqual(c.to_string(),"(1, 2, 3)")
 
     def test_CoordField(self):
@@ -181,14 +181,14 @@ class TestAVA(unittest.TestCase):
         graph = Graph(3,ele_vals)
         perimeter = get_perimeter(graph)
         self.assertEqual((len(perimeter)),16)
-        self.assertEqual(perimeter[0].get_x(),-2)
-        self.assertEqual(perimeter[4].get_x(),2)
-        self.assertEqual(perimeter[6].get_x(),-1)
-        self.assertEqual(perimeter[15].get_x(),2)
-        self.assertEqual(perimeter[0].get_y(),2)
-        self.assertEqual(perimeter[4].get_y(),2)
-        self.assertEqual(perimeter[6].get_y(),-2)
-        self.assertEqual(perimeter[15].get_y(),-1)
+        self.assertEqual(perimeter[0].x,-2)
+        self.assertEqual(perimeter[4].x,2)
+        self.assertEqual(perimeter[6].x,-1)
+        self.assertEqual(perimeter[15].x,2)
+        self.assertEqual(perimeter[0].y,2)
+        self.assertEqual(perimeter[4].y,2)
+        self.assertEqual(perimeter[6].y,-2)
+        self.assertEqual(perimeter[15].y,-1)
 
         #test coords equal and contains coord
         c1 = Coord(1,2,3)

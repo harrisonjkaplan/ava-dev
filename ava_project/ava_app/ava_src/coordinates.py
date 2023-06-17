@@ -8,12 +8,6 @@ class Coord:
         self.z = z 
         self.view = -1
 
-    def get_x(self):
-        return self.x
-    def get_y(self):
-        return self.y
-    def get_z(self):
-        return self.z
     def print_2d(self):
         print('(' + str(self.x) + ', ' + str(self.y) + ')')
 
@@ -66,28 +60,28 @@ class Graph:
         for i in range(self.num_steps*2-1):
             s = f""
             for j in range(self.num_steps*2-1):
-                s = s + f"({self.grid[i][j].get_x()},{self.grid[i][j].get_y()})"
+                s = s + f"({self.grid[i][j].x},{self.grid[i][j].y})"
             print(s)
                 
     def x_list(self):
         xS = []
         for i in range(self.num_steps*2-1):
             for j in range(self.num_steps*2-1):
-                xS.append(self.grid[i][j].get_x())
+                xS.append(self.grid[i][j].x)
         return xS 
     
     def y_list(self):
         yS = []
         for i in range(self.num_steps*2-1):
             for j in range(self.num_steps*2-1):
-                yS.append(self.grid[i][j].get_y())
+                yS.append(self.grid[i][j].y)
         return yS 
 
     def z_list(self):
         zS = []
         for i in range(self.num_steps*2-1):
             for j in range(self.num_steps*2-1):
-                zS.append(self.grid[i][j].get_z())
+                zS.append(self.grid[i][j].z)
         return zS 
     
 class View: 

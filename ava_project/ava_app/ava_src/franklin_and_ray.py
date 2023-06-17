@@ -18,9 +18,9 @@ class FranklinAndRay:
 
 #implementation of franklinandray's algorithm for calculating view shed
     def run_franklin_and_ray(self):
-        observer_x_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].get_x()
-        observer_y_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].get_y()
-        observer_ele_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].get_z()
+        observer_x_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].x
+        observer_y_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].y
+        observer_ele_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].z
         obs = Coord(observer_x_val,observer_y_val,observer_ele_val)
         self.perimeter = get_perimeter(self.graph) 
 
@@ -36,8 +36,8 @@ class FranklinAndRay:
         
                     if(contains_coord(sight_line[j+1],self.vs) == False):
                         self.vs.append(sight_line[j+1])
-                        grid_y = -sight_line[j+1].get_y()-1+self.graph.num_steps
-                        grid_x = sight_line[j+1].get_x()-1+self.graph.num_steps
+                        grid_y = -sight_line[j+1].y-1+self.graph.num_steps
+                        grid_x = sight_line[j+1].x-1+self.graph.num_steps
                         self.graph.grid[grid_y][grid_x].view = 0
 
 

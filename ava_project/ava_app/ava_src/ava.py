@@ -1,6 +1,6 @@
 # from elevation_getter import ElevationGetter
 from .coordinates import CoordField, Graph, View
-from .franklin_and_ray import FranklinAndRay
+from .viewshed import Viewshed
 from .visualizer import Visualizer
 from .helpers import reconcile_coords, get_fake_elevations, difference_of_views
 #class to run the view shed for a single location
@@ -27,7 +27,7 @@ class Ava:
     
     def calc_viewsheds(self):
         for height in range(self.min_height,self.max_height+1):
-            fam = FranklinAndRay(self.graph,height,self.s)
+            fam = Viewshed(self.graph,height,self.s)
             fam.run_franklin_and_ray()
             fam.calc_views()
             fam.set_area_of_views()

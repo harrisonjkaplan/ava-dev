@@ -3,7 +3,7 @@ from .helpers import get_perimeter, slope,bres,contains_coord,order_vs,dfs,diffe
 from bresenham import bresenham
 from .coordinates import Coord, Graph, View
 import numpy as np
-class FranklinAndRay:
+class Viewshed:
     def __init__(self,graph,h,s): 
         self.graph = graph #graph of easier coordinates from Graph.py
         self.h = h

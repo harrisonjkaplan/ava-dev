@@ -45,9 +45,7 @@ class TestAVA(unittest.TestCase):
     def test_graph(self):
         num_steps = 5
         random_elevations = [random.randint(0, 10) for _ in range((num_steps*2-1)**2)]
-        random_longitudes = [random.randint(0, 10) for _ in range((num_steps*2-1)**2)]
-        random_latitudes = [random.randint(0, 10) for _ in range((num_steps*2-1)**2)]
-        g = Graph(num_steps,random_elevations,random_longitudes,random_latitudes)
+        g = Graph(num_steps,random_elevations)
 
         self.assertEqual(len(g.grid),num_steps*2-1)
         self.assertEqual(len(g.grid[0]),num_steps*2-1)
@@ -159,9 +157,8 @@ class TestAVA(unittest.TestCase):
                     1,0,1,1,1,0,1,
                     1,0,0,0,0,0,1,
                     1,1,0,0,1,1,1]
-        random_longitudes = [random.randint(0, 10) for _ in range((4*2-1)**2)]
-        random_latitudes = [random.randint(0, 10) for _ in range((4*2-1)**2)]
-        graph = Graph(4,ele_vals,random_longitudes,random_latitudes)
+
+        graph = Graph(4,ele_vals)
         min_height = 0
         max_height = 1
         r = 4
@@ -187,9 +184,8 @@ class TestAVA(unittest.TestCase):
                     2,1,0,1,2,
                     2,1,1,1,2,
                     2,2,2,2,2]
-        random_longitudes = [random.randint(0, 10) for _ in range((3*2-1)**2)]
-        random_latitudes = [random.randint(0, 10) for _ in range((3*2-1)**2)]
-        graph = Graph(3,ele_vals,random_longitudes,random_latitudes)
+
+        graph = Graph(3,ele_vals)
         perimeter = get_perimeter(graph)
         self.assertEqual((len(perimeter)),16)
         self.assertEqual(perimeter[0].x,-2)

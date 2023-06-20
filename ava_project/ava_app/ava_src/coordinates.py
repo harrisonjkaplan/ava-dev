@@ -45,7 +45,7 @@ class CoordField:##coord field takes in the startign coordinates and generates t
     
 class Graph: 
 #takes in elevation data and returns a graph of points on easier x and y plots top right is -r, r elevation[0]
-    def __init__(self,num_steps,elevations):
+    def __init__(self,num_steps,elevations,longitude_list,latitude_list):
         self.num_steps = num_steps
         self.elevations = elevations
         # self.longitude_list = longitude_list

@@ -17,27 +17,39 @@ class Ava:
      
         # self.ele = ElevationGetter(self.cf.longitude_list,self.cf.latitude_list)
         # self.elevations = self.ele.getElevation()
-        self.elevations = get_fake_elevations(int((r/s)*2-1))
-        self.graph = Graph(int(self.r/self.s),self.elevations)
+        # self.elevations = get_fake_elevations(int((r/s)*2-1))
+        self.elevations = [0,1,1,0,1,1,1,
+                    1,0,0,0,0,0,1,
+                    1,0,1,1,1,0,1,
+                    0,0,1,0,1,0,0,
+                    1,0,1,1,1,0,1,
+                    1,0,0,0,0,0,1,
+                    1,1,0,0,1,1,1]
         self.fams = []
-
-    def getAPIReturnList(self):
-        APIReturn = []
-
+        self.graphs = []
+        for i in range(self.min_height,self.max_height+1):
+            graph = Graph(int(self.r/self.s),self.elevations,self.cf.longitude_list,self.cf.latitude_list)
+            print(id(graph))
+            self.graphs.append(graph)
+        self.graph = Graph(int(self.r/self.s),self.elevations,self.cf.longitude_list,self.cf.latitude_list)
     
     def calc_viewsheds(self):
+        i = 0
         for height in range(self.min_height,self.max_height+1):
-            fam = Viewshed(self.graph,height,self.s)
+            fam = Viewshed(self.graphs[i],height,self.s)
             fam.run_franklin_and_ray()
             fam.calc_views()
             fam.set_area_of_views()
-            self.fams.append(fam)
+            print(height)
             if height == 0:
                 fam.graph.update_new_coords(fam.vs)
             else:
                 #will get the coords that are unique to this new height, assumes that all coords contained in previous height calculation will still be visible
-                new_coords = difference_of_views(self.fams[height-self.min_height-1].vs,self.fams[height-self.min_height].vs)
+                new_coords = difference_of_views(self.fams[i-1].vs,fam.vs)
                 fam.graph.update_new_coords(new_coords)
+
+            self.fams.append(fam)
+            i=+1
 
     def get_areas(self):
         areas = []
@@ -46,16 +58,16 @@ class Ava:
         return areas
 
             
-    def visualize(self,areas,heights):
-        xS = self.graph.x_list()
-        yS = self.graph.y_list()
-        zS = self.graph.z_list()
-        xS2 = self.fams[0].x_list()
-        yS2 = self.fams[0].y_list()
-        zS2 = self.fams[0].z_list()
+    # def visualize(self,areas,heights):
+    #     xS = self.graph.x_list()
+    #     yS = self.graph.y_list()
+    #     zS = self.graph.z_list()
+    #     xS2 = self.fams[0].x_list()
+    #     yS2 = self.fams[0].y_list()
+    #     zS2 = self.fams[0].z_list()
 
-        v = Visualizer(xS,yS,zS,xS2,yS2,zS2,areas,heights)
-        v.visualize()
+    #     v = Visualizer(xS,yS,zS,xS2,yS2,zS2,areas,heights)
+    #     v.visualize()
 
     def get_response(self):
         response = {}

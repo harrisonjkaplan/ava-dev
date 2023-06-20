@@ -84,5 +84,5 @@ def get_ava(request):
     areas = [fam.total_vs_area for fam in ava.fams]
 
     response = ava.get_response()
-    print(response)
+    print(len(ava.fams[0].graph.get_new_coords()))
     return JsonResponse(response)

@@ -14,7 +14,6 @@ class Viewshed:
         self.ordered_vs = []
         self.total_vs_area = 0
 
-
 #implementation of franklinandray's algorithm for calculating view shed
     def run_franklin_and_ray(self):
         observer_x_val = self.graph.grid[self.graph.num_steps-1][self.graph.num_steps-1].x
@@ -35,13 +34,10 @@ class Viewshed:
         
                     if(contains_coord(sight_line[j+1],self.vs) == False):
                         self.vs.append(sight_line[j+1])
-                        print(self.vs[-1].coordinates_to_string())
                         grid_y = -sight_line[j+1].y-1+self.graph.num_steps
                         grid_x = sight_line[j+1].x-1+self.graph.num_steps
                         self.graph.grid[grid_y][grid_x].view = 0
                         self.graph.grid[grid_y][grid_x].visible = True
-
-
 
     def get_vs_coords(self):
         vs_coords = []

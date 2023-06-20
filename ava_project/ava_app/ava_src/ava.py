@@ -31,8 +31,7 @@ class Ava:
             graph = Graph(int(self.r/self.s),self.elevations,self.cf.longitude_list,self.cf.latitude_list)
             print(id(graph))
             self.graphs.append(graph)
-        self.graph = Graph(int(self.r/self.s),self.elevations,self.cf.longitude_list,self.cf.latitude_list)
-    
+            
     def calc_viewsheds(self):
         i = 0
         for height in range(self.min_height,self.max_height+1):

@@ -9,6 +9,8 @@ class Coord:
         self.longitude = longitude
         self.latitude = latitude
         self.view = -1
+        self.visible = False
+        self.new_coord = False
 
     def print_2d(self):
         print('(' + str(self.x) + ', ' + str(self.y) + ')')
@@ -46,8 +48,12 @@ class Graph:
     def __init__(self,num_steps,elevations,longitude_list,latitude_list):
         self.num_steps = num_steps
         self.elevations = elevations
-        self.longitude_list = longitude_list
-        self.latitude_list = latitude_list
+        # self.longitude_list = longitude_list
+        # self.latitude_list = latitude_list
+        self.longitude_list = [-1,0,1,-1,0,1,-1,0,1]
+
+
+        self.latitude_list = [1,1,1,0,0,0,-1,-1,-1]
         self.grid = []
         self.grid_list = []
        
@@ -70,6 +76,34 @@ class Graph:
             for j in range(self.num_steps*2-1):
                 s = s + f"({self.grid[i][j].x},{self.grid[i][j].y})"
             print(s)
+
+    def update_new_coords(self,new_coords):
+        for coord in new_coords:
+            grid_y = -coord.y-1+self.num_steps
+            grid_x = coord.x-1+self.num_steps
+            self.grid[grid_y][grid_x].new_coord = True
+
+
+    def get_visible_coords(self):
+        visible_points = []
+        for i in range(self.num_steps*2-1):
+            for j in range(self.num_steps*2-1):
+                if self.grid[i][j].visible == True:
+                    visible_points.append(self.grid[i][j])
+
+        return visible_points
+
+    def get_new_coords(self):
+        new_coords = []
+        for i in range(self.num_steps*2-1):
+            for j in range(self.num_steps*2-1):
+                if self.grid[i][j].new_coord == True:
+                    new_coords.append(self.grid[i][j])
+
+        return new_coords
+            
+
+    
                 
     def x_list(self):
         xS = []

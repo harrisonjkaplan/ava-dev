@@ -3,7 +3,7 @@ from .helpers import get_perimeter, slope,bres,contains_coord,order_vs,dfs,diffe
 from bresenham import bresenham
 from .coordinates import Coord, Graph, View
 import numpy as np
-class FranklinAndRay:
+class Viewshed:
     def __init__(self,graph,h,s): 
         self.graph = graph #graph of easier coordinates from Graph.py
         self.h = h
@@ -12,7 +12,6 @@ class FranklinAndRay:
         self.perimeter = []#perimeter
         self.views = []
         self.ordered_vs = []
-        self.new_coords = []
         self.total_vs_area = 0
 
 
@@ -40,6 +39,8 @@ class FranklinAndRay:
                         grid_y = -sight_line[j+1].y-1+self.graph.num_steps
                         grid_x = sight_line[j+1].x-1+self.graph.num_steps
                         self.graph.grid[grid_y][grid_x].view = 0
+                        self.graph.grid[grid_y][grid_x].visible = True
+
 
 
     def get_vs_coords(self):
@@ -81,11 +82,11 @@ class FranklinAndRay:
     def to_dict(self):
         dict_obj = {}
         print(self.vs[0].coordinates_to_string())
-        visible_points = [coord.coordinates_to_string() for coord in self.vs]
+        visible_points = [coord.coordinates_to_string() for coord in self.graph.get_visible_coords()]
 
         dict_obj['visible_points'] = visible_points
         dict_obj['total_visible_area'] = self.total_vs_area
-        dict_obj['newly_visible_points'] = [coord.coordinates_to_string() for coord in self.new_coords]
+        dict_obj['newly_visible_points'] = [coord.coordinates_to_string() for coord in self.graph.get_new_coords()]
         views = []
         for view in self.views:
             view_details = {}

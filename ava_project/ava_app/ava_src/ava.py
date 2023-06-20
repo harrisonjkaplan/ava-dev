@@ -1,6 +1,6 @@
 # from elevation_getter import ElevationGetter
 from .coordinates import CoordField, Graph, View
-from .franklin_and_ray import FranklinAndRay
+from .viewshed import Viewshed
 from .visualizer import Visualizer
 from .helpers import reconcile_coords, get_fake_elevations, difference_of_views
 #class to run the view shed for a single location
@@ -27,16 +27,17 @@ class Ava:
     
     def calc_viewsheds(self):
         for height in range(self.min_height,self.max_height+1):
-            fam = FranklinAndRay(self.graph,height,self.s)
+            fam = Viewshed(self.graph,height,self.s)
             fam.run_franklin_and_ray()
             fam.calc_views()
             fam.set_area_of_views()
             self.fams.append(fam)
             if height == 0:
-                fam.new_coords = fam.vs
+                fam.graph.update_new_coords(fam.vs)
             else:
                 #will get the coords that are unique to this new height, assumes that all coords contained in previous height calculation will still be visible
-                fam.new_coords = difference_of_views(self.fams[height-self.min_height-1].vs,self.fams[height-self.min_height].vs)
+                new_coords = difference_of_views(self.fams[height-self.min_height-1].vs,self.fams[height-self.min_height].vs)
+                fam.graph.update_new_coords(new_coords)
 
     def get_areas(self):
         areas = []

@@ -49,7 +49,7 @@ def dfs(vs,c1):
     x = 1
     i = 0
     while(i<x):
-        p1 = Coord(coords[i].x+1,coords[i].y,coords[i].z)
+        p1 = Coord(coords[i].x+1,coords[i].y,coords[i].z,0,0)
         p2 = Coord(coords[i].x,coords[i].y+1,coords[i].z)
         p3 = Coord(coords[i].x-1,coords[i].y,coords[i].z)
         p4 = Coord(coords[i].x,coords[i].y-1,coords[i].z)

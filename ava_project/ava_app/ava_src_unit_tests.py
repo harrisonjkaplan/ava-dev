@@ -5,7 +5,7 @@ from ava_src.coordinates import Coord, CoordField, Graph, View
 from haversine import haversine, Unit
 from ava_src.helpers import get_fake_elevations, get_perimeter, contains_coord, coords_equal, contains_coord_index, dfs, difference_of_views
 import random
-from ava_src.franklin_and_ray import FranklinAndRay
+from ava_src.viewshed import Viewshed
 
 
 
@@ -74,7 +74,7 @@ class TestAVA(unittest.TestCase):
         random_longitudes = [random.randint(0, 10) for _ in range((3*2-1)**2)]
         random_latitudes = [random.randint(0, 10) for _ in range((3*2-1)**2)]
         graph = Graph(3,ele_vals,random_longitudes,random_latitudes)
-        fam = FranklinAndRay(graph, 0,s)
+        fam = Viewshed(graph, 0,s)
         self.assertEqual(len(graph.grid),5)
         fam.run_franklin_and_ray()
         vs_coords = fam.get_vs_coords()
@@ -88,7 +88,7 @@ class TestAVA(unittest.TestCase):
                     2,2,0,2,2]
         
         graph = Graph(3,ele_vals,random_longitudes,random_latitudes)
-        fam = FranklinAndRay(graph, 0,s)
+        fam = Viewshed(graph, 0,s)
         self.assertEqual(len(graph.grid),5)
         fam.run_franklin_and_ray()
         vs_coords = fam.get_vs_coords()
@@ -112,7 +112,7 @@ class TestAVA(unittest.TestCase):
         random_longitudes = [random.randint(0, 10) for _ in range((4*2-1)**2)]
         random_latitudes = [random.randint(0, 10) for _ in range((4*2-1)**2)]
         graph = Graph(4,ele_vals,random_longitudes,random_latitudes)
-        fam = FranklinAndRay(graph, 0,s)
+        fam = Viewshed(graph, 0,s)
         self.assertEqual(len(graph.grid),7)
         fam.run_franklin_and_ray()
         vs_coords = fam.get_vs_coords()
